@@ -1,0 +1,335 @@
+<!DOCTYPE html> 
+<html>
+  <head>
+    <title>Three Pointer League</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width", initial-scale="1">
+    
+    <!-- Keywords used in the website -->
+    <meta name="keywords" content="Three Pointer League, Three Pointer, Nolan Sankey">
+    
+    <!-- Description for Website -->
+    <meta name="description" content="The official website for Three Pointer League">
+    
+    <!-- Bootstrap.css -->
+    <link type="text/css" rel="stylesheet" href="assets/css/bootstrap.min.css">
+
+    <!-- Custom styling -->
+    <link type="text/css" rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      
+  </head>
+    
+  <!-- The #page-top ID is part of the scrolling feature - the data-spy and data-target are part of the built-in Bootstrap scrollspy function -->
+  <body id="page-top" data-spy="scroll" data-target=".navbar fixed-top">
+    <nav class="navbar navbar-fixed-top" role="navigation">
+      <div class="header">
+        <div class="header-text">
+          <h1><strong>SBL</strong></h1>
+          <p id="user-note"></p>
+        </div>
+      </div>
+      <div class="mobile-nav-button">
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+          <p><i>Menu</i></p>
+        </a>
+      </div>
+      <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul id="nav" class="nav navbar-nav">
+          <li><a><strong>Home</strong></a></li>
+          <li><a href="thebook.html">The Book</a></li>
+          <li><a href="league.html">League</a></li>
+          <li><a href="rules.html">Rules</a></li>
+          <li><a href="javascript:void(0);" onclick="logout()">Logout</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Welcome Section -->
+    <section id="welcome" class="welcome-section">
+        <h1 id="user-intro"></h1>
+        <br>
+    </section>
+      
+    <!-- Matchup Section -->
+        <section id="matchup" class="matchup-section">
+            <table id="matchup-table">
+                <thead>
+                    <tr>
+                      <th>You</th>
+                      <th></th>
+                      <th id="opponent">Opponent</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td id="User_EB"></td>
+                        <td><strong>Earned Balance</strong></td>
+                        <td id="Opp_EB"></td>
+                    </tr>
+                    <tr>
+                        <td id="User_GB"></td>
+                        <td><strong>Granted Balance</strong></td>
+                        <td id="Opp_GB"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+        </section>
+      
+    <!-- Place Bets Section -->
+    <section id="place-bets-link" class="place-bets-link-section">
+      <a href="thebook.html">
+        <button>Place Bets!</button>
+        <p id="test"></p>
+      </a>
+    </section>
+      
+    <!-- Open Bets -->
+    <section id="open-bets" class="open-bets-section">
+      <h3 id="open-bets-intro">Open Bets</h3>
+      <table id="open-bets-table">
+        <thead>
+            <tr>
+              <th>Bet</th>
+              <th>Wager</th>
+              <th>To Win</th>
+              <th>Lock Time (East)</th>
+              <th>Cash Out (-10%)</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+      
+    <!-- Settled Bets -->
+    <section id="settled-bets" class="settled-bets-section">
+      <h3 id="settled-bets-intro">Settled Bets</h3>
+      <table id="settled-bets-table">
+        <thead>
+            <tr>
+              <th>Bet</th>
+              <th>Wager</th>
+              <th>Earnings</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </body>
+</html>
+
+<script>
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+    today = mm + '/' + dd + '/' + yyyy;
+</script>
+
+<script>
+    var is_logged_in = localStorage.getItem("logged-in");
+    var curr_user = localStorage.getItem("user");
+    document.getElementById("user-note").innerHTML = curr_user;
+    document.getElementById("user-intro").innerHTML = "Hi "+curr_user+"!";
+    
+    if(!is_logged_in){
+        window.location.replace("index.html");
+    }
+    function logout(){
+        localStorage.clear();
+        window.location.replace("index.html");
+    }
+    function link_error(){
+        var error_msg = confirm("Link error. Sorry :(");
+    }
+</script>
+
+<!-- NEED: link to balances + matchup, link to active and settled bets-->
+
+<script>
+        
+    const balanceLink = "https://sheets.googleapis.com/v4/spreadsheets/18P7-NHQmX6N4_lQLKEbpSZp1SbEKF0hQItTcCXvLSCw/values/Balance Scoresheet/?key=AIzaSyBDAMBO6YH4isbUYYgjK1NF9LwGiur6z-Y";
+    balance_fetch();
+
+    var users_start_idx = 7;
+    var names_idx = 1;
+    var opp_name_idx = 2;
+    var user_granted_balance_idx = 4;
+    var user_earned_balance_idx = 5;
+    var user_in_play_idx = 6;
+    var opp_granted_balance_idx = 8;
+    var opp_earned_balance_idx = 9;
+
+     async function balance_fetch() {
+        let balance_data = await fetch(balanceLink)    
+            .then((response) => response.json());
+        var num_players = balance_data.values[1][1];
+        var user_idx = -3;
+        for (let i = 0; i < num_players; i++) {
+            if(balance_data.values[users_start_idx+i][names_idx]==curr_user){
+                user_idx = i;
+            }
+        }
+        if (user_idx>-1){
+            var opponent = balance_data.values[users_start_idx+user_idx][opp_name_idx];
+            var opp_idx = -3;
+            for (let i = 0; i < num_players; i++) {
+                if(balance_data.values[users_start_idx+i][names_idx]==opponent){
+                    opp_idx = i;
+                }
+            }
+            if (opp_idx>-1){
+                var user_earned_balance = balance_data.values[users_start_idx+user_idx][user_earned_balance_idx];
+                document.getElementById("User_EB").innerHTML = user_earned_balance;
+                var user_granted_balance = balance_data.values[users_start_idx+user_idx][user_granted_balance_idx];
+                document.getElementById("User_GB").innerHTML = user_granted_balance;
+                var opp_earned_balance = balance_data.values[users_start_idx+opp_idx][opp_earned_balance_idx];
+                document.getElementById("Opp_EB").innerHTML = opp_earned_balance;
+                var opp_granted_balance = balance_data.values[users_start_idx+opp_idx][opp_granted_balance_idx];
+                document.getElementById("Opp_GB").innerHTML = opp_granted_balance;
+                document.getElementById("opponent").innerHTML = opponent;
+            }     
+        }
+     }
+    
+</script>
+
+<script>
+        
+    const betsLink = "https://sheets.googleapis.com/v4/spreadsheets/18P7-NHQmX6N4_lQLKEbpSZp1SbEKF0hQItTcCXvLSCw/values/Active Bets Helper/?key=AIzaSyBDAMBO6YH4isbUYYgjK1NF9LwGiur6z-Y";
+    bet_fetch();
+    
+    var right_now = Date.now();
+    let east_datetime_str = new Date().toLocaleString("en-US", { timeZone: "America/New_York" });
+    let date_east = new Date(east_datetime_str);
+
+    var bet_start_row = 3;
+    var bet_num_col = 0;
+    var name_col = 2;
+    var wager_col = 3;
+    var to_win_col = 4;
+    var lock_col = 11;
+    var bet_disp_col = 13;
+
+     async function bet_fetch() {
+        let bet_data = await fetch(betsLink)    
+            .then((response) => response.json());
+        var num_bets = bet_data.values[0][0];
+        var bets_count = 0;
+        var table = document.getElementById("open-bets-table");
+        for (let i = 0; i < num_bets; i++) {
+            bet_row = i+bet_start_row;
+            var user_name = bet_data.values[bet_row][name_col];
+            if (user_name==curr_user){
+                bets_count = bets_count+1;
+                var bet_id = bet_data.values[bet_row][bet_num_col];
+                var row = table.insertRow(bets_count);
+                var matchups_cell = row.insertCell(0);
+                matchups_cell.innerHTML = bet_data.values[bet_row][bet_disp_col];
+                var wager_cell = row.insertCell(1);
+                wager_cell.innerHTML = bet_data.values[bet_row][wager_col];
+                var to_win_cell = row.insertCell(2);
+                to_win_cell.innerHTML = bet_data.values[bet_row][to_win_col];
+                var lock_cell = row.insertCell(3);
+                var time_fetch = bet_data.values[bet_row][lock_col];
+                lock_cell.innerHTML = time_fetch;
+                var cash_out_cell = row.insertCell(4);
+                if(date_east >= time_fetch){
+                    cash_out_cell.innerHTML = "Live";
+                }
+                else {
+                    const newButton = document.createElement('button');
+                    newButton.textContent = "Cash Out";
+                    newButton.addEventListener("click", cashOut, false);
+                    newButton.betId = bet_id;
+                    newButton.balanceType = "To Build";
+                    cash_out_cell.appendChild(newButton);
+                }    
+            }
+        }
+         if (bets_count==0){
+             document.getElementById("open-bets-table").style.display = "none";
+             document.getElementById("open-bets-intro").innerHTML = "No Open Bets";
+         }
+     }
+    
+    function cashOut(evt){
+      event.preventDefault();
+      const data = new FormData();
+      var r = confirm("Cashed out bet will cost 10%. Press OK to continue");
+        if (r == true){
+          data.append("CashOut",true);
+          betId = evt.currentTarget.betId;
+          data.append("BetId",betId);
+          const action = "https://script.google.com/macros/s/AKfycbxZ7cZOEBALz4jEcPOGMCAy1G8HAO9CGwTb8kjdOSiZvbyke6ihX1QPQAFF11ab1sE-SQ/exec";
+          fetch(action, {
+            method: 'POST',
+            body: data,
+          })
+          .then(() => {
+            var r = confirm("Bet cashed out. Press OK to reload page");
+            if (r == true){
+                window.location.reload();
+            }
+          })
+        }
+      }
+</script>
+
+
+<script>
+        
+    const sBetsLink = "https://sheets.googleapis.com/v4/spreadsheets/18P7-NHQmX6N4_lQLKEbpSZp1SbEKF0hQItTcCXvLSCw/values/Settled Bets Helper/?key=AIzaSyBDAMBO6YH4isbUYYgjK1NF9LwGiur6z-Y";
+    s_bet_fetch();
+    
+    var s_bet_start_row = 3;
+    var s_bet_num_col = 0;
+    var s_name_col = 2;
+    var s_wager_col = 3;
+    var s_earning_col = 10;
+    var s_bet_disp_col = 15;
+
+     async function s_bet_fetch() {
+        let bet_data = await fetch(sBetsLink)    
+            .then((response) => response.json());
+        var num_bets = bet_data.values[0][0];
+        var bets_count = 0;
+        var table = document.getElementById("settled-bets-table");
+        for (let i = 0; i < num_bets; i++) {
+            bet_row = i+s_bet_start_row;
+            var user_name = bet_data.values[bet_row][s_name_col];
+            if (user_name==curr_user){
+                bets_count = bets_count+1;
+                var bet_id = bet_data.values[bet_row][s_bet_num_col];
+                var row = table.insertRow(bets_count);
+                var matchups_cell = row.insertCell(0);
+                matchups_cell.innerHTML = bet_data.values[bet_row][s_bet_disp_col];
+                var wager_cell = row.insertCell(1);
+                wager_cell.innerHTML = bet_data.values[bet_row][s_wager_col];
+                var earn_cell = row.insertCell(2);
+                earn_cell.innerHTML = bet_data.values[bet_row][s_earning_col];               
+            }
+        }
+         if (bets_count==0){
+             document.getElementById("settled-bets-table").style.display = "none";
+             document.getElementById("settled-bets-intro").innerHTML = "No Settled Bets";
+         }
+     }   
+    
+</script>
+
+<script>
+    if (window.innerWidth < 766) {
+        document.getElementById("nav").style.display = "none";
+    }
+    function myFunction() {
+        var x = document.getElementById("nav");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
+        }
+    }
+</script>

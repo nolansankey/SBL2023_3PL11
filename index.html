@@ -1,0 +1,257 @@
+<!DOCTYPE html> 
+<html>
+  <head>
+    <title>SBL</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width", initial-scale="1">
+    
+    <!-- Keywords used in the website -->
+    <meta name="keywords" content="Sports Betting League, SBL, Nolan Sankey">
+    
+    <!-- Description for Website -->
+    <meta name="description" content="The official website for SBL">
+    
+    <!-- Bootstrap.css -->
+    <link type="text/css" rel="stylesheet" href="assets/css/bootstrap.min.css">
+
+    <!-- Custom styling -->
+    <link type="text/css" rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      
+  </head>
+    
+  <!-- The #page-top ID is part of the scrolling feature - the data-spy and data-target are part of the built-in Bootstrap scrollspy function -->
+  <body id="page-top" data-spy="scroll" data-target=".navbar fixed-top">
+    <nav class="navbar navbar-fixed-top" role="navigation">
+      <div class="header">
+        <div class="header-text">
+          <h1><strong>SBL</strong></h1>
+          <p id="user-note"></p>
+        </div>
+      </div>
+      <div class="mobile-nav-button">
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+          <p><i>Menu</i></p>
+        </a>
+      </div>
+      <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul id="nav" class="nav navbar-nav">
+          <li><a><strong>Home</strong></a></li>
+          <li><a href="thebook.html">The Book</a></li>
+          <li><a href="league.html">League</a></li>
+          <li><a href="rules.html">Rules</a></li>
+          <li><a href="javascript:void(0);" onclick="logout()">Logout</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Login Section -->
+    <section id="login" class="login-section">
+      <h1>Login:</h1>
+      <div>
+        <form id="login-form">
+          <div class="field name-entry">
+            <label for="login-name">Name: </label>
+            <select id="login-name-select" name="login-name-select" class="input-box">
+              <option value="Default">(name)</option>
+            </select><br>
+          </div> 
+          <div class="field password-entry">
+            <label>Password: <input type="text" id="password-typed" name="password-typed" class="input-box" required /></label><br>
+            <input type="submit" id="login-submit" value="Submit"><br>
+          </div>
+        </form>
+      </div>
+      <br>
+      <p><a href="javascript:void(0);" onclick="forgotPW()"><i>Forgot Password</i></a></p>
+      <p id="forgot-pw-message">You Fool! Text Nolan and he can help you log in or reset your password.</p>
+      <br>
+    </section>
+      
+    <!-- Register Section -->
+    <section id="register" class="register-section">
+      <h1>OR</h1><br>
+      <h1>Register:</h1>
+        <div class="intro-text">
+          <br>
+          <h4><strong>Welcome to Sports Betting League!</strong></h4><br>
+            <p><strong>Here’s how it works: </strong></p>
+            <p>Matchups are week-long head-to-head competitions against another player.</p><br>
+            <p>Each week, you are granted 1000 points to bet on any sporting event tracked in “the book”. This will include all major sports leagues and I can take additional requests if you’d like.</p><br>
+            <p>The goal is simple: by the end of the week, earn more points than your opponent by using your points balance to bet on any number of sporting events and retaining the winnings.</p><br>
+            <p>There will be a regular season followed by playoffs to decide the league victor.</p><br>
+            <p><strong>More gameplay specifics: </strong></p><br>
+            <p>On Monday morning, 500 points become available to you as your granted balance.</p><br>
+            <p>When a bet settles, the winnings will be moved to your earned balance.</p><br>
+            <p>You can bet from your granted balance OR your earned balance, so even after you have won a bet, you can use those earnings on additional bets until the week’s end.</p><br>
+            <p>On Friday morning, an additional 500 points become available in your granted balance to be used for the  weekend.</p><br>
+            <p>Only your earned balance counts towards your final total, whereas your granted balance does not (i.e. you must bet each point at least once for it to count, you cannot just sit on the balance).</p><br>
+            <p>Each week starts fresh as you face a new opponent and the balance does not roll over.</p><br>
+            <p><strong>How to earn money: </strong><br>
+            <p>The primary game will have a buy-in with splits going to the top player(s) at the end of the playoffs!</p><br>
+            <p>Choose to challenge your opponent to a “Throwdown” and make a side bet for that week’s competition. This is encouraged particularly for rivalry matchups with your close friends.</p><br>
+            <p>Chose to “make it count” where your points will be paid out as real money at a rate of 100pts = $1. I will put up money as the house and if you come out on top, then you can walk away with my cash. All deficits will be collected and the balance will be donated to a charity of the collective group’s choosing. You can opt in or out of “make it count” at any point during the season.</p><br>
+            <p><strong>Note: </strong><br>
+            <p>Banter is highly encouraged. I will find ways to facilitate it myself if I have to</p><br>
+          <p><strong>Create Your Login Here:</strong></p>
+        </div>
+      <div>
+        <form method="POST" action="https://script.google.com/macros/s/AKfycby8mAHh5Is5ZNd6IUV237R2ebUn9J8DR-3eNvHsW90-B5_poktOyCxT4f8C7yHg94W9/exec" id="register-form" >
+          <label>Name: <br><input type="text" name="Name" required /></label><br>
+          <label>Google Drive Email Address: <br><input type="text" name="Email" required /></label><br>
+          <label>Venmo Username: <br><input type="text" name="Venmo" required /></label><br>
+          <label>Phon Number: <br><input type="text" name="Number"></label><br>
+          <label>Password: <br><input type="text" name="Password" required /></label>
+          <p><i>(it can be literally anything. 1 or more letters.)</i></p>
+          <br>
+          <input type="submit" id="register-submit" value="Submit">
+          <p id="submit-confirm"></p>
+        </form>
+        <br>
+        <p><i>NOTE: you will NOT be able to log-in until I approve you and add you as a user.</i></p>
+      </div>
+    </section>
+      
+    <section id="password-table" class="password-table-section">
+      <h1>Password Table</h1>
+      <table id="passwords-logged">
+        <tr>
+          <th>Name</th>
+          <th>Password</th>
+        </tr>
+      </table>
+    </section>
+  </body>
+</html>
+
+<script>
+    function logout(){
+        localStorage.clear();
+        window.location.replace("index.html");
+    }
+</script>
+
+
+<script>
+    const loginSheetLink = "https://sheets.googleapis.com/v4/spreadsheets/18P7-NHQmX6N4_lQLKEbpSZp1SbEKF0hQItTcCXvLSCw/values/Logins/?key=AIzaSyBDAMBO6YH4isbUYYgjK1NF9LwGiur6z-Y";
+    names_data_fetch();
+    
+    async function names_data_fetch(){
+        let login_sheet_data = await fetch(loginSheetLink)    
+          .then((response) => response.json());
+        var num_pw = 44;
+        for (let k = 0; k < num_pw; k++){
+            var name_option = login_sheet_data.values[1+k][0];
+            var user_pw = login_sheet_data.values[1+k][1];
+            var table = document.getElementById("passwords-logged");
+            var row = table.insertRow(k+1); 
+            cell1 = row.insertCell(0);
+            cell1.innerHTML = name_option;
+            cell2 = row.insertCell(1);
+            cell2.innerHTML = user_pw;
+            let newOption = new Option(name_option, name_option);
+            const select = document.getElementById("login-name-select");
+            select.add(newOption,undefined);
+        } 
+    }
+</script>
+
+<script>
+    var registration_window = false;
+    if(registration_window) {
+        document.getElementById('login').style.display = 'block';
+        document.getElementById('register').style.display = 'block';
+    }
+    else {
+        document.getElementById('login').style.display = 'block';
+        document.getElementById('register').style.display = 'none';
+    }
+</script>
+
+<script>
+    document.getElementById("forgot-pw-message").style.display = "none";
+    function forgotPW() {
+        var x = document.getElementById("forgot-pw-message");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
+        }
+    }
+</script>
+
+<script>
+    window.addEventListener("load", function() {
+        var login_form = document.getElementById('login-form');
+        login_form.addEventListener("submit", function(e) {
+            e.preventDefault();
+            const data = new FormData(login_form);
+            entered_un = data.get("login-name-select");
+            entered_pw = data.get("password-typed");
+            searchPwTable(entered_un, entered_pw);
+        });
+    });
+</script>
+
+<script>
+    function searchPwTable(un, pw) {
+        var table = document.getElementById("passwords-logged");
+        
+        // Loop through all table rows
+        for (i = 1; i < table.rows.length; i++) {
+            var idx_name = table.rows[i].cells[0].innerText;
+            if (idx_name==un){
+                var idx_pw = table.rows[i].cells[1].innerText;
+                if (idx_pw==pw){
+                    localStorage.setItem("logged-in", true);
+                    localStorage.setItem("user", entered_un);
+                    window.location.href = "home.html";
+                }
+            }          
+        }
+    }
+</script>
+
+<script>
+    window.addEventListener("load", function() {
+        var reg_form = document.getElementById('register-form');
+        reg_form.addEventListener("submit", function(e) {
+            e.preventDefault();
+            document.getElementById("register-submit").disabled=true;
+            const data = new FormData(reg_form);
+            const action = e.target.action;
+            fetch(action, {
+                method: 'POST',
+                body: data,
+            })
+            .then(() => {
+                var r = confirm("Registration Successful. You will be granted the ability to log in soon. Time to get excited for the season!");
+                if (r == true){
+                    window.location.reload();
+                }
+            })
+        });
+    });
+</script>
+
+<script>
+    var curr_user = localStorage.getItem("user");
+    if(curr_user!="Admin"){
+        document.getElementById('password-table').style.display = 'none';
+    }
+</script>
+
+<script>
+    if (window.innerWidth < 766) {
+        document.getElementById("nav").style.display = "none";
+    }
+    function myFunction() {
+        var x = document.getElementById("nav");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
+        }
+    }
+</script>
