@@ -1,16 +1,16 @@
 <!DOCTYPE html> 
 <html>
   <head>
-    <title>Three Pointer League</title>
+    <title>SBL</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width", initial-scale="1">
     
     <!-- Keywords used in the website -->
-    <meta name="keywords" content="Three Pointer League, Three Pointer, Nolan Sankey">
+    <meta name="keywords" content="Three Pointer League, Three Pointer, Sports Betting League, SBL, 3PL, Nolan Sankey">
     
     <!-- Description for Website -->
-    <meta name="description" content="The official website for Three Pointer League">
+    <meta name="description" content="The official website for Three Pointer League and Sports Betting League">
     
     <!-- Bootstrap.css -->
     <link type="text/css" rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -46,10 +46,75 @@
       </div>
     </nav>
 
-    <!-- Intro Section -->
-    <section id="a-section" class="a-section">
-      <h1 class="shrink-text-lg">League Page Coming Soon</h1>
+    <!-- Scores Section -->
+    <section id="sbl-scores-section" class="sbl-scores-section">
+      <h2 class="shrink-text-lg">Scores</h2>
+      <table id="score-table">
+          <thead>
+            <tr>
+              <th class="scores-th">Player</th>
+              <th class="scores-th">Earned<br>[Granted]</th>
+              <th class="scores-th"accesskey="">Earned<br>[Granted]</th>
+              <th class="scores-th">Player</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
     </section>
+      
+    <!-- Standings Section -->
+    <section id="standings-section" class="standings-section">
+      <h2 class="shrink-text-lg">Standings</h2>
+      <h4>Nutjobs</h4>
+      <table id="div1-table">
+          <thead>
+            <tr>
+              <th>Player</th>
+              <th>Wins</th>
+              <th>Losses</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <br>
+      <h4>Headcases</h4>
+      <table id="div2-table">
+          <thead>
+            <tr>
+              <th>Player</th>
+              <th>Wins</th>
+              <th>Losses</th>
+            </tr>
+          </thead>
+        <tbody></tbody>
+      </table>
+      <br>
+      <h6>*Top 4 in each division qualify for playoffs</h6>
+    </section>
+      
+    <!-- Schedule Section -->
+    <section id="schedule-section" class="schedule-section">
+      <h2 class="shrink-text-lg">Schedule Matrix</h2>
+      <div class="schedule_div">
+          <table id="schedule-table">
+            <thead>
+                <tr>
+                    <th>Player</th>
+                    <th>Week 1</th>
+                    <th>Week 2</th>
+                    <th>Week 3</th>
+                    <th>Week 4</th>
+                    <th>Week 5</th>
+                    <th>Week 6</th>
+                    <th>Week 7</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+      </div>
+    </section>
+      
+    
   </body>
 </html>
 
@@ -66,6 +131,112 @@
     }
 </script>
 
+<script>
+    const balanceLink = "https://sheets.googleapis.com/v4/spreadsheets/18P7-NHQmX6N4_lQLKEbpSZp1SbEKF0hQItTcCXvLSCw/values/Balance Scoresheet/?key=AIzaSyBDAMBO6YH4isbUYYgjK1NF9LwGiur6z-Y";
+    balance_fetch();
+
+    var users_start_idx = 7;
+    var names_idx = 1;
+    var opp_name_idx = 2;
+    var opp_granted_balance_idx = 8;
+    var opp_earned_balance_idx = 9;
+    
+
+     async function balance_fetch() {
+        let balance_data = await fetch(balanceLink)    
+            .then((response) => response.json());
+        var num_players = balance_data.values[1][1];
+        var score_table = document.getElementById("score-table");
+        used_names = [];
+        row_add = 1;
+        for (let i = 0; i < num_players; i++) {
+            name = balance_data.values[users_start_idx+i][names_idx];
+            already_in = !(used_names.includes(name));
+            if(already_in){
+                var row = score_table.insertRow(row_add);
+                var cell1 = row.insertCell(0);
+                cell1.innerHTML = name;
+                user_e_bal = balance_data.values[users_start_idx+i][opp_earned_balance_idx];
+                user_g_bal = balance_data.values[users_start_idx+i][opp_granted_balance_idx];
+                var cell2 = row.insertCell(1);
+                cell2.classList.add("scores-score-cell");
+                cell2.innerHTML = user_e_bal+"<br>["+user_g_bal+"]";
+                opp_name = balance_data.values[users_start_idx+i][opp_name_idx];
+                var opp_idx = -3;
+                for (let j = 0; j < num_players; j++) {
+                    if(balance_data.values[users_start_idx+j][names_idx]==opp_name){
+                        opp_idx = j;
+                    }
+                }
+                opp_e_bal = balance_data.values[users_start_idx+opp_idx][opp_earned_balance_idx];
+                opp_g_bal = balance_data.values[users_start_idx+opp_idx][opp_granted_balance_idx];
+                var cell3 = row.insertCell(2);
+                cell3.classList.add("scores-score-cell");
+                cell3.innerHTML = opp_e_bal+"<br>["+opp_g_bal+"]";
+                var cell4 = row.insertCell(3);
+                cell4.innerHTML = opp_name;
+                used_names.push(name);
+                used_names.push(opp_name);
+                row_add = row_add + 1;
+            }
+        }
+     }
+</script>
+
+<script>
+    const leagueLink = "https://sheets.googleapis.com/v4/spreadsheets/18P7-NHQmX6N4_lQLKEbpSZp1SbEKF0hQItTcCXvLSCw/values/League Info/?key=AIzaSyBDAMBO6YH4isbUYYgjK1NF9LwGiur6z-Y";
+    league_fetch();
+
+    var sched_users_start_idx = 6;
+    var standings_division_idx = 1;
+    var schedule_names_idx = 4;
+    var schedule_weeks = 7;
+    var standings_names_idx = 21;
+    var div1_name = "Nutjobs";
+    var div2_name = "Headcases";
+
+     async function league_fetch() {
+        let league_data = await fetch(leagueLink)    
+            .then((response) => response.json());
+        var num_players = league_data.values[1][1];
+        var schedule_table = document.getElementById("schedule-table");
+        for (let j = 0; j < num_players; j++) {
+            row = schedule_table.insertRow(j+1);
+            name_cell = row.insertCell(0);
+            name_cell.innerHTML = league_data.values[sched_users_start_idx+j][schedule_names_idx];
+            name_cell.classList.add("schedule-name-cell");
+            name_cell.classList.add("schedule-main-name-cell");
+            for (let i = 0; i < schedule_weeks; i++) {
+                var cell = row.insertCell(i+1);
+                cell.innerHTML = league_data.values[sched_users_start_idx+j][schedule_names_idx+i+1];
+                cell.classList.add("schedule-name-cell");
+            }
+        }
+         
+        div1_add = 0;
+        div2_add = 0;
+        for (let j = 0; j < num_players; j++) {
+            division = league_data.values[sched_users_start_idx+j][standings_division_idx];
+            if(division==div1_name){
+                standings_table = document.getElementById("div1-table");
+                div1_add = div1_add + 1;
+                add_loc = div1_add
+            }
+            else {
+                standings_table = document.getElementById("div2-table");
+                div2_add = div2_add + 1;
+                add_loc = div2_add
+            }
+            row = standings_table.insertRow(add_loc);
+            name_cell = row.insertCell(0);
+            name_cell.innerHTML = league_data.values[sched_users_start_idx+j][standings_names_idx];
+            w_cell = row.insertCell(1);
+            w_cell.innerHTML = league_data.values[sched_users_start_idx+j][standings_names_idx+1];
+            l_cell = row.insertCell(2);
+            l_cell.innerHTML = league_data.values[sched_users_start_idx+j][standings_names_idx+2];
+        }
+     }
+</script>
 
 <script>
     if (window.innerWidth < 766) {

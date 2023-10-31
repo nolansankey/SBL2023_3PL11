@@ -281,6 +281,68 @@ td { font-size: 13px }
     padding: 8px 0 5px 0;
 }
 
+/* League Specific */ 
+
+.sbl-scores-section {
+    text-align: center;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    padding: 25px 0 0 0;
+    position: relative;
+    max-width: 80vw;
+    margin: auto;
+}
+
+.scores-th {
+    text-align: center;
+}
+
+.scores-score-cell {
+     font-size: 11px;
+    column-width: 100px;
+}
+
+.standings-section {
+    text-align: center;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    padding: 25px 0 0 0;
+    position: relative;
+    max-width: 80vw;
+    margin: auto;
+}
+
+.schedule-section {
+    text-align: center;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 0 50px 0;
+    position: relative;
+    max-width: 80vw;
+    margin: auto;
+}
+
+.schedule_div {
+    overflow-x: scroll;
+    position: relative;
+    max-width: 100%;
+}
+
+.schedule-name-cell {
+    min-width: 150px;
+    max-width: 150px;
+}
+
+.schedule-main-name-cell{
+    background-color: Gainsboro;
+}
+
 /* FULL PICKS Specific */ 
 
 .weeks-picks-section {

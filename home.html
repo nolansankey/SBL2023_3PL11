@@ -1,16 +1,16 @@
 <!DOCTYPE html> 
 <html>
   <head>
-    <title>Three Pointer League</title>
+    <title>SBL Home</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width", initial-scale="1">
     
     <!-- Keywords used in the website -->
-    <meta name="keywords" content="Three Pointer League, Three Pointer, Nolan Sankey">
+    <meta name="keywords" content="Three Pointer League, Three Pointer, Sports Betting League, SBL, 3PL, Nolan Sankey">
     
     <!-- Description for Website -->
-    <meta name="description" content="The official website for Three Pointer League">
+    <meta name="description" content="The official website for Three Pointer League and Sports Betting League">
     
     <!-- Bootstrap.css -->
     <link type="text/css" rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -235,8 +235,9 @@
                 var lock_cell = row.insertCell(3);
                 var time_fetch = bet_data.values[bet_row][lock_col];
                 lock_cell.innerHTML = time_fetch;
+                time_fetch_2 = Date.parse(time_fetch);
                 var cash_out_cell = row.insertCell(4);
-                if(date_east >= time_fetch){
+                if(date_east >= time_fetch_2){
                     cash_out_cell.innerHTML = "Live";
                 }
                 else {
