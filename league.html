@@ -62,6 +62,24 @@
       </table>
     </section>
       
+    <!-- Week's Bets Section -->
+    <section id="weeks-bets-section" class="weeks-bets-section">
+      <h2 class="shrink-text-lg">This Week's Bets</h2>
+      <div class="weeks-bets-overflow-div">
+          <table id="week-bets-table">
+              <thead>
+                <tr>
+                  <th>Player</th>
+                  <th>Bet</th>
+                  <th>Wager</th>
+                  <th>Earnings</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+      </div>
+    </section>
+      
     <!-- Standings Section -->
     <section id="standings-section" class="standings-section">
       <h2 class="shrink-text-lg">Standings</h2>
@@ -234,6 +252,42 @@
             w_cell.innerHTML = league_data.values[sched_users_start_idx+j][standings_names_idx+1];
             l_cell = row.insertCell(2);
             l_cell.innerHTML = league_data.values[sched_users_start_idx+j][standings_names_idx+2];
+        }
+     }
+</script>
+
+<script>
+    const settledBetsLink = "https://sheets.googleapis.com/v4/spreadsheets/18P7-NHQmX6N4_lQLKEbpSZp1SbEKF0hQItTcCXvLSCw/values/Settled Bets Helper/?key=AIzaSyBDAMBO6YH4isbUYYgjK1NF9LwGiur6z-Y";
+    s_bets_fetch();
+
+    var s_bets_start_idx = 3;
+    var s_bets_name_idx = 2;
+    var s_bets_wager_idx = 3;
+    var s_bets_won_idx = 8;
+    var s_bets_win_idx = 10;
+    var s_bets_bet_idx = 15;
+
+     async function s_bets_fetch() {
+        let league_data = await fetch(settledBetsLink)    
+            .then((response) => response.json());
+        var num_bets = league_data.values[0][0];
+        var s_bets_tabls = document.getElementById("week-bets-table");
+        for (let j = 0; j < num_bets; j++) {
+            row = s_bets_tabls.insertRow(j+1);
+            name_cell = row.insertCell(0);
+            name_cell.innerHTML = league_data.values[s_bets_start_idx+j][s_bets_name_idx];
+            var cell2 = row.insertCell(1);
+            cell2.innerHTML = league_data.values[s_bets_start_idx+j][s_bets_bet_idx];
+            var cell3 = row.insertCell(2);
+            cell3.innerHTML = league_data.values[s_bets_start_idx+j][s_bets_wager_idx];
+            var cell4 = row.insertCell(3);
+            cell4.innerHTML = league_data.values[s_bets_start_idx+j][s_bets_win_idx];
+            if(league_data.values[s_bets_start_idx+j][s_bets_won_idx]=="TRUE"){
+                cell4.classList.add("green_cell");
+            }
+            else if(league_data.values[s_bets_start_idx+j][s_bets_won_idx]=="FALSE"){
+                cell4.classList.add("red_cell");
+            }
         }
      }
 </script>
