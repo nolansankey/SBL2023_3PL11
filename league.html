@@ -64,8 +64,8 @@
       
     <!-- Week's Bets Section -->
     <section id="weeks-bets-section" class="weeks-bets-section">
-      <h2 class="shrink-text-lg">Settled Bets</h2>
-      <div class="weeks-bets-overflow-div">
+    <h2 class="shrink-text-lg">Settled Bets</h2>
+    <div class="weeks-bets-overflow-div">
           <table id="week-bets-table">
               <thead>
                 <tr>
@@ -283,7 +283,7 @@
             .then((response) => response.json());
         var num_bets = league_data.values[0][0];
         var s_bets_tabls = document.getElementById("week-bets-table");
-        for (let j = 0; j < num_bets; j++) {
+        for (let j = 0; j < num_bets; j++) { 
             row = s_bets_tabls.insertRow(1);
             name_cell = row.insertCell(0);
             name_cell.innerHTML = league_data.values[s_bets_start_idx+j][s_bets_name_idx];

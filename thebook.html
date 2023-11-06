@@ -463,7 +463,7 @@
             data.append("Wins", prospective_payout);
             var balance_type = data.get("BalanceType");
             data.append("Bet(s)", bets_arr);
-            if ((balance_type=="Granted" && wager_amt>=granted_balance_num)||(balance_type=="Earned" && wager_amt>=earned_balance_num)){
+            if ((balance_type=="Granted" && wager_amt>granted_balance_num)||(balance_type=="Earned" && wager_amt>earned_balance_num)){
                 document.getElementById("balance-error").innerHTML = "Insufficient Balance"
                 document.getElementById("place-bet-submit").disabled=false;
             }
