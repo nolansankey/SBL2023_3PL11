@@ -86,7 +86,7 @@
             </div>
             <div id="place-bet">
               <h3 id="bet-payout"></h3>
-              <form method="POST" id="bet-form" action="https://script.google.com/macros/s/AKfycbxZ7cZOEBALz4jEcPOGMCAy1G8HAO9CGwTb8kjdOSiZvbyke6ihX1QPQAFF11ab1sE-SQ/exec">
+              <form method="POST" id="bet-form" action="https://script.google.com/macros/s/AKfycbwAWh69QZkGtkVRDKVFcS7adlXzr62EztO3jHR6FFiS2nzadoQTeudpXSkUsHOx9p3DWg/exec">
                 <div id=balance-type-div>
                   <input type="radio" id="granted" name="BalanceType" value="Granted" required>
                   <label id="gb-radio" for="granted">Granted Balance</label><br>
@@ -107,11 +107,10 @@
             <h3>League Navigator:</h3>
             <form>
                 <select name="league-select" id="league-select">
-                    <option value="NHL">NHL</option>
                     <option value="NFL">NFL</option>
                     <option value="NCAAFB">NCAAFB</option>
                     <option value="NBA">NBA</option>
-                    <option value="MLB">MLB</option>
+                    <option value="NHL">NHL</option>
                 </select>
                 <br />
                 <button onclick="getOdds()"> Get Odds </button>
@@ -181,7 +180,7 @@
                 document.getElementById("earned-balance").innerHTML = "Earned Balance: "+user_earned_balance;
                 document.getElementById("eb-radio").innerHTML = "Earned Balance: "+user_earned_balance;
                 var user_granted_balance = balance_data.values[users_start_idx+user_idx][user_granted_balance_idx];
-                document.getElementById("granted-balance").innerHTML = "Granteded Balance: "+user_granted_balance;
+                document.getElementById("granted-balance").innerHTML = "Granted Balance: "+user_granted_balance;
                 document.getElementById("gb-radio").innerHTML = "Granted Balance: "+user_granted_balance;
                 granted_balance_num = Number(balance_data.values[users_start_idx+user_idx][user_granted_balance_num_idx]);
                 var user_in_play = balance_data.values[users_start_idx+user_idx][user_in_play_idx];
@@ -228,6 +227,7 @@
                 var o1_1w = odds_data.values[5 + i*2][9];
                 var o2_1w = odds_data.values[5 + i*2][10];
                 var o3_1w = odds_data.values[5 + i*2][11];
+                var scoringID_1 = odds_data.values[5 + i*2][12];
                 var team2 = odds_data.values[6 + i*2][4];
                 var o1_2 = odds_data.values[6 + i*2][6];
                 var o2_2 = odds_data.values[6 + i*2][7];
@@ -235,6 +235,7 @@
                 var o1_2w = odds_data.values[6 + i*2][9];
                 var o2_2w = odds_data.values[6 + i*2][10];
                 var o3_2w = odds_data.values[6 + i*2][11];
+                var scoringID_2= odds_data.values[6 + i*2][12];
                 var cell2_1 = row1.insertCell(1);
                 cell2_1.innerHTML = team1;
                 var cell3_1 = row1.insertCell(2);
@@ -249,6 +250,7 @@
                     newButton11.betType = document.getElementById("odds-type-1").innerText;
                     newButton11.nameParam = team1+" "+o1_1;
                     newButton11.valueParam = o1_1w;
+                    newButton11.scoringId = scoringID_1;
                     newButton11.matchupId = i;
                     newButton11.startTime = timestamp;
                     cell3_1.appendChild(newButton11);
@@ -265,6 +267,7 @@
                     newButton12.betType = document.getElementById("odds-type-2").innerText;
                     newButton12.nameParam = team1+"/"+team2+" "+o2_1;
                     newButton12.valueParam = o2_1w;
+                    newButton12.scoringId = scoringID_1;
                     newButton12.matchupId = i;
                     newButton12.startTime = timestamp;
                     cell4_1.appendChild(newButton12);
@@ -281,6 +284,7 @@
                     newButton13.betType = document.getElementById("odds-type-3").innerText;
                     newButton13.nameParam = team1+" "+o3_1;
                     newButton13.valueParam = o3_1w;
+                    newButton13.scoringId = scoringID_1;
                     newButton13.matchupId = i;
                     newButton13.startTime = timestamp;
                     cell5_1.appendChild(newButton13);
@@ -301,6 +305,7 @@
                     newButton21.betType = document.getElementById("odds-type-1").innerText;
                     newButton21.nameParam = team2+" "+o1_2;
                     newButton21.valueParam = o1_2w;
+                    newButton21.scoringId = scoringID_2;
                     newButton21.matchupId = i;
                     newButton21.startTime = timestamp;
                     cell3_2.appendChild(newButton21);
@@ -317,6 +322,7 @@
                     newButton22.betType = document.getElementById("odds-type-2").innerText;
                     newButton22.nameParam = team1+"/"+team2+" "+o2_2;
                     newButton22.valueParam = o2_2w;
+                    newButton22.scoringId = scoringID_2;
                     newButton22.matchupId = i;
                     newButton22.startTime = timestamp;
                     cell4_2.appendChild(newButton22);
@@ -328,14 +334,15 @@
                 }
                 else {
                     const newButton23 = document.createElement('button');
-                newButton23.textContent = o3_2;
-                newButton23.addEventListener("click", addToSlip, false);
-                newButton23.betType = document.getElementById("odds-type-3").innerText;
-                newButton23.nameParam = team2+" "+o3_2;
-                newButton23.valueParam = o3_2w;
-                newButton23.matchupId = i;
-                newButton23.startTime = timestamp;
-                cell5_2.appendChild(newButton23);
+                    newButton23.textContent = o3_2;
+                    newButton23.addEventListener("click", addToSlip, false);
+                    newButton23.betType = document.getElementById("odds-type-3").innerText;
+                    newButton23.nameParam = team2+" "+o3_2;
+                    newButton23.valueParam = o3_2w;
+                    newButton23.scoringId = scoringID_2;
+                    newButton23.matchupId = i;
+                    newButton23.startTime = timestamp;
+                    cell5_2.appendChild(newButton23);
                 }
             }
         
@@ -376,11 +383,12 @@
             betType = evt.currentTarget.betType;
             nameParam = evt.currentTarget.nameParam;
             valueParam = evt.currentTarget.valueParam;  
+            scoringId = evt.currentTarget.scoringId;
             matchupId = evt.currentTarget.matchupId;
             startTime = evt.currentTarget.startTime;
             new_bet.innerHTML = nameParam;
             document.getElementById("bets-listed").appendChild(new_bet);
-            submitParam = betType+"_"+nameParam+"_"+valueParam+"_"+startTime;
+            submitParam = betType+"_"+nameParam+"_"+valueParam+"_"+startTime+"_"+scoringId;
             bets_arr[bets] = submitParam;
             bets = bets + 1;
             bet_1_W = Number(bet_1_W) * (1+Number(valueParam));

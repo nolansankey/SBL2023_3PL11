@@ -153,6 +153,15 @@ td { font-size: 13px }
     padding: 50px 0 0 0;
 }
 
+.throwdown-section {
+    text-align: center;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 0 0 0;
+}
+
 .place-bets-link-section {
     text-align: center;
     display: flex;
@@ -177,7 +186,7 @@ td { font-size: 13px }
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    padding: 50px 0 50px 0;
+    padding: 50px 0 0 0;
 }
 
 .todays-picks-section {
@@ -196,6 +205,15 @@ td { font-size: 13px }
     justify-content: center;
     align-items: center;
     padding: 150px 5% 150px 5%;
+}
+
+.opp-bets-section {
+    text-align: center;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 0 50px 0;
 }
 
 .todays-picks-section > h1{
@@ -295,6 +313,28 @@ td { font-size: 13px }
     margin: auto;
 }
 
+.weeks-bets-section {
+    text-align: center;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    padding: 25px 0 0 0;
+    position: relative;
+    max-width: 80vw;
+    margin: auto;
+}
+
+.weeks-bets-section td {
+    font-size: 9px;
+}
+
+.weeks-bets-overflow-div {
+    overflow-y: scroll;
+    position: relative;
+    max-height: 600px;
+}
+
 .scores-th {
     text-align: center;
 }
@@ -383,7 +423,7 @@ td { font-size: 13px }
 .wide_col {
     min-width: 200px;
     max-width: 200px;
-}
+}`
 
 .std_col {
     min-width: 100px;
