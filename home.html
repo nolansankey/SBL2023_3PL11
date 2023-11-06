@@ -69,26 +69,49 @@
                         <td id="Opp_EB"></td>
                     </tr>
                     <tr>
+                        <td id="User_AS"></td>
+                        <td><strong>At Stake</strong></td>
+                        <td id="Opp_AS"></td>
+                    </tr>
+                    <tr>
                         <td id="User_GB"></td>
                         <td><strong>Granted Balance</strong></td>
                         <td id="Opp_GB"></td>
                     </tr>
                 </tbody>
             </table>
-            <br>
         </section>
+        
+    <!-- Throwdown Section -->
+    <section id="throwdown" class="throwdown-section">
+      <div id="throwdown-button-div">
+        <button id="throwdown-button" onClick=throwdownPop()><i>Throwdown?</i></button>
+      </div>
+      <div id="throwdown-hidden">
+        <label id="throwdown-prop-label-txt">Throwdown Proposal: $&nbsp;</label><input type="text" id="throwdown-prop" class="input-box" size="3" required /><br>
+        <button id="sendTD" onclick="shareThrowdown()"> Send to Opponent </button>
+        <br><br>
+      </div>
+      <p id="throwdown-prop-txt"></p>
+      <div id="accept-throwdown">
+        <button id="TD_accept" onClick="acceptTD()">Accept</button>
+        <button id="TD_counter" onClick="throwdownPop()">Counter Propose</button>
+        <button id="TD_decline" onClick="declineTD()">Decline</button>
+      </div>
+      <br>
+    </section>  
       
     <!-- Place Bets Section -->
     <section id="place-bets-link" class="place-bets-link-section">
       <a href="thebook.html">
-        <button>Place Bets!</button>
+        <button id="Place_bets_button">Place Bets!</button>
         <p id="test"></p>
       </a>
     </section>
       
     <!-- Open Bets -->
     <section id="open-bets" class="open-bets-section">
-      <h3 id="open-bets-intro">Open Bets</h3>
+      <h3 id="open-bets-intro">Your Open Bets</h3>
       <table id="open-bets-table">
         <thead>
             <tr>
@@ -105,10 +128,26 @@
       
     <!-- Settled Bets -->
     <section id="settled-bets" class="settled-bets-section">
-      <h3 id="settled-bets-intro">Settled Bets</h3>
+      <h3 id="settled-bets-intro">Your Settled Bets</h3>
       <table id="settled-bets-table">
         <thead>
             <tr>
+              <th>Bet</th>
+              <th>Wager</th>
+              <th>Earnings</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+      
+    <!-- Opponent Bets -->
+    <section id="opp-bets" class="opp-bets-section">
+      <h3 id="opp-bets-intro">Opponents Bets</h3>
+      <table id="opp-bets-table">
+        <thead>
+            <tr>
+              <th>Player</th>
               <th>Bet</th>
               <th>Wager</th>
               <th>Earnings</th>
@@ -159,8 +198,11 @@
     var user_granted_balance_idx = 4;
     var user_earned_balance_idx = 5;
     var user_in_play_idx = 6;
-    var opp_granted_balance_idx = 8;
-    var opp_earned_balance_idx = 9;
+    var opp_name = "";
+    var throwdown_prop_idx = 28;
+    var throwdown_wager_idx = 27;
+    var throwdown_sent_idx = 29;
+
 
      async function balance_fetch() {
         let balance_data = await fetch(balanceLink)    
@@ -174,6 +216,7 @@
         }
         if (user_idx>-1){
             var opponent = balance_data.values[users_start_idx+user_idx][opp_name_idx];
+            opp_name = opponent;
             var opp_idx = -3;
             for (let i = 0; i < num_players; i++) {
                 if(balance_data.values[users_start_idx+i][names_idx]==opponent){
@@ -183,14 +226,41 @@
             if (opp_idx>-1){
                 var user_earned_balance = balance_data.values[users_start_idx+user_idx][user_earned_balance_idx];
                 document.getElementById("User_EB").innerHTML = user_earned_balance;
+                var user_as_balance = balance_data.values[users_start_idx+user_idx][user_in_play_idx];
+                document.getElementById("User_AS").innerHTML = user_as_balance;
                 var user_granted_balance = balance_data.values[users_start_idx+user_idx][user_granted_balance_idx];
                 document.getElementById("User_GB").innerHTML = user_granted_balance;
-                var opp_earned_balance = balance_data.values[users_start_idx+opp_idx][opp_earned_balance_idx];
+                var opp_earned_balance = balance_data.values[users_start_idx+opp_idx][user_earned_balance_idx];
                 document.getElementById("Opp_EB").innerHTML = opp_earned_balance;
-                var opp_granted_balance = balance_data.values[users_start_idx+opp_idx][opp_granted_balance_idx];
+                var opp_as_balance = balance_data.values[users_start_idx+opp_idx][user_in_play_idx];
+                document.getElementById("Opp_AS").innerHTML = opp_as_balance;
+                var opp_granted_balance = balance_data.values[users_start_idx+opp_idx][user_granted_balance_idx];
                 document.getElementById("Opp_GB").innerHTML = opp_granted_balance;
                 document.getElementById("opponent").innerHTML = opponent;
-            }     
+            }  
+            var throwdown_amt = balance_data.values[users_start_idx+user_idx][throwdown_wager_idx];
+            var throwdown_prop_amt = balance_data.values[users_start_idx+user_idx][throwdown_prop_idx];
+            var throwdown_sent_amt = balance_data.values[users_start_idx+user_idx][throwdown_sent_idx];
+            if (throwdown_amt>0){
+                document.getElementById("throwdown-prop-txt").innerHTML = "Throwdown for $"+throwdown_amt;
+                document.getElementById("throwdown-button-div").style.display = "none";
+                document.getElementById("accept-throwdown").style.display = "none";
+            }
+            else if (throwdown_prop_amt>0){
+                document.getElementById("throwdown-prop-txt").innerHTML = opp_name+" has proposed a throwdown for $"+throwdown_prop_amt;
+                document.getElementById("throwdown-button-div").style.display = "none";
+                document.getElementById("accept-throwdown").style.display = "block";
+            }
+            else if (throwdown_sent_amt>0){
+                document.getElementById("throwdown-prop-txt").innerHTML = "Throwdown proposed for $"+throwdown_sent_amt;
+                document.getElementById("throwdown-button-div").style.display = "none";
+                document.getElementById("accept-throwdown").style.display = "none";
+            }
+            else if (throwdown_amt<0){
+                document.getElementById("throwdown-prop-txt").innerHTML = "No throwdown this week";
+                document.getElementById("throwdown-button-div").style.display = "none";
+                document.getElementById("accept-throwdown").style.display = "none";
+            }
         }
      }
     
@@ -264,7 +334,7 @@
           data.append("CashOut",true);
           betId = evt.currentTarget.betId;
           data.append("BetId",betId);
-          const action = "https://script.google.com/macros/s/AKfycbxZ7cZOEBALz4jEcPOGMCAy1G8HAO9CGwTb8kjdOSiZvbyke6ihX1QPQAFF11ab1sE-SQ/exec";
+          const action = "https://script.google.com/macros/s/AKfycbwAWh69QZkGtkVRDKVFcS7adlXzr62EztO3jHR6FFiS2nzadoQTeudpXSkUsHOx9p3DWg/exec";
           fetch(action, {
             method: 'POST',
             body: data,
@@ -319,6 +389,182 @@
          }
      }   
     
+</script>
+
+<script>
+    const settledBetsLink = "https://sheets.googleapis.com/v4/spreadsheets/18P7-NHQmX6N4_lQLKEbpSZp1SbEKF0hQItTcCXvLSCw/values/Settled Bets Helper/?key=AIzaSyBDAMBO6YH4isbUYYgjK1NF9LwGiur6z-Y";
+    const activedBetsLink = "https://sheets.googleapis.com/v4/spreadsheets/18P7-NHQmX6N4_lQLKEbpSZp1SbEKF0hQItTcCXvLSCw/values/Active Bets Helper/?key=AIzaSyBDAMBO6YH4isbUYYgjK1NF9LwGiur6z-Y";
+    s_bets_fetch();
+
+    var s_bets_start_idx = 3;
+    var s_bets_name_idx = 2;
+    var s_bets_wager_idx = 3;
+    var s_bets_won_idx = 8;
+    var s_bets_win_idx = 10;
+    var s_bets_bet_idx = 15;
+    
+    var bet_start_row = 3;
+    var bet_num_col = 0;
+    var name_col = 2;
+    var wager_col = 3;
+    var to_win_col = 4;
+    var lock_col = 11;
+    var bet_disp_col = 13;
+    var past_lock_col = 14;
+    
+    opp_has_bets = false;
+
+     async function s_bets_fetch() {
+        let league_data = await fetch(settledBetsLink)    
+            .then((response) => response.json());
+        var num_bets = league_data.values[0][0];
+        var o_bets_table = document.getElementById("opp-bets-table");
+        for (let j = 0; j < num_bets; j++) {
+            bet_name = league_data.values[s_bets_start_idx+j][s_bets_name_idx];
+            if(opp_name!="" && bet_name==opp_name){
+                opp_has_bets = true;
+                row = o_bets_table.insertRow(1);
+                name_cell = row.insertCell(0);
+                name_cell.innerHTML = bet_name;
+                var cell2 = row.insertCell(1);
+                cell2.innerHTML = league_data.values[s_bets_start_idx+j][s_bets_bet_idx];
+                var cell3 = row.insertCell(2);
+                cell3.innerHTML = league_data.values[s_bets_start_idx+j][s_bets_wager_idx];
+                var cell4 = row.insertCell(3);
+                cell4.innerHTML = league_data.values[s_bets_start_idx+j][s_bets_win_idx];
+                if(league_data.values[s_bets_start_idx+j][s_bets_won_idx]=="TRUE"){
+                    cell4.classList.add("green_cell");
+                }
+                else if(league_data.values[s_bets_start_idx+j][s_bets_won_idx]=="FALSE"){
+                    cell4.classList.add("red_cell");
+                }
+            }   
+         }
+         
+         let act_league_data = await fetch(activedBetsLink)    
+            .then((response) => response.json());
+        var num_bets = act_league_data.values[0][0];
+        for (let j = 0; j < num_bets; j++) {
+            bet_name = act_league_data.values[bet_start_row+j][name_col];
+            past_lock = act_league_data.values[bet_start_row+j][past_lock_col];
+            if(opp_name!="" && bet_name==opp_name && past_lock!="FALSE"){
+                opp_has_bets = true;
+                row = o_bets_table.insertRow(1);
+                name_cell = row.insertCell(0);
+                name_cell.innerHTML = bet_name;
+                var cell2 = row.insertCell(1);
+                cell2.innerHTML = act_league_data.values[bet_start_row+j][bet_disp_col];
+                var cell3 = row.insertCell(2);
+                cell3.innerHTML = act_league_data.values[bet_start_row+j][wager_col];
+                var cell4 = row.insertCell(3);
+                cell4.innerHTML = "TBD";
+            }   
+         }
+         
+         if (!opp_has_bets){
+             document.getElementById("opp-bets-table").style.display = "none";
+             document.getElementById("opp-bets-intro").innerHTML = "No Opponent Bets";
+         }
+     }
+</script>
+
+<script>
+    
+    document.getElementById("throwdown-hidden").style.display = "none";
+    document.getElementById("accept-throwdown").style.display = "none";
+    function throwdownPop() {
+        var x = document.getElementById("throwdown-hidden");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
+        }
+    }
+    
+    function shareThrowdown(){
+      event.preventDefault();
+      const data = new FormData();
+      var r = confirm("Share throwdown with opponent? Press OK to confirm. Page may take a moment to refresh.");
+        if (r == true){
+          data.append("Throwdown",true);
+          data.append("Name",curr_user);
+          data.append("Decision","Propose");
+          td_amt = document.getElementById("throwdown-prop").value;
+          data.append("Amount",td_amt);
+          document.getElementById("TD_accept").disabled=true;
+          document.getElementById("TD_counter").disabled=true;
+          document.getElementById("TD_decline").disabled=true;
+          document.getElementById("Place_bets_button").disabled=true;
+          document.getElementById("throwdown-button").disabled=true;
+          document.getElementById("sendTD").disabled=true;
+          const action = "https://script.google.com/macros/s/AKfycbwAWh69QZkGtkVRDKVFcS7adlXzr62EztO3jHR6FFiS2nzadoQTeudpXSkUsHOx9p3DWg/exec";
+          fetch(action, {
+            method: 'POST',
+            body: data,
+          })
+          .then(() => {
+            var r = confirm("Throwdown Proposed. Press OK to reload page");
+            if (r == true){
+                window.location.reload();
+            }
+          })
+        }
+    }
+
+    function acceptTD() {
+      event.preventDefault();
+      const data = new FormData();
+      var r = confirm("Ready to throw down? Press OK to confirm. Page may take a moment to refresh.");
+        if (r == true){
+          data.append("Throwdown",true);
+          data.append("Name",curr_user);
+          data.append("Decision","Accept");
+          document.getElementById("TD_accept").disabled=true;
+          document.getElementById("TD_counter").disabled=true;
+          document.getElementById("TD_decline").disabled=true;
+          document.getElementById("Place_bets_button").disabled=true;
+          document.getElementById("throwdown-button").disabled=true;
+          const action = "https://script.google.com/macros/s/AKfycbwAWh69QZkGtkVRDKVFcS7adlXzr62EztO3jHR6FFiS2nzadoQTeudpXSkUsHOx9p3DWg/exec";
+          fetch(action, {
+            method: 'POST',
+            body: data,
+          })
+          .then(() => {
+            var r = confirm("Throwdown Accepted. Press OK to reload page");
+            if (r == true){
+                window.location.reload();
+            }
+          })
+        }
+    }
+    
+    function declineTD() {
+      event.preventDefault();
+      const data = new FormData();
+      var r = confirm("Don't want to throw down? This will opt you out for the entire week. Press OK to confirm. Page may take a moment to refresh.");
+        if (r == true){
+          data.append("Throwdown",true);
+          data.append("Name",curr_user);
+          data.append("Decision","Decline");
+          document.getElementById("TD_accept").disabled=true;
+          document.getElementById("TD_counter").disabled=true;
+          document.getElementById("TD_decline").disabled=true;
+          document.getElementById("Place_bets_button").disabled=true;
+          document.getElementById("throwdown-button").disabled=true;
+          const action = "https://script.google.com/macros/s/AKfycbwAWh69QZkGtkVRDKVFcS7adlXzr62EztO3jHR6FFiS2nzadoQTeudpXSkUsHOx9p3DWg/exec";
+          fetch(action, {
+            method: 'POST',
+            body: data,
+          })
+          .then(() => {
+            var r = confirm("Throwdown Declined. Press OK to reload page");
+            if (r == true){
+                window.location.reload();
+            }
+          })
+        }
+    }
+
 </script>
 
 <script>
