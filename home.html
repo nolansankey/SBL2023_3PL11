@@ -93,6 +93,9 @@
         <br><br>
       </div>
       <p id="throwdown-prop-txt"></p>
+      <div id="proposed-td">
+        <button id="td_adj" onClick="throwdownPop()">Adjust Proposal</button>
+      </div>
       <div id="accept-throwdown">
         <button id="TD_accept" onClick="acceptTD()">Accept</button>
         <button id="TD_counter" onClick="throwdownPop()">Counter Propose</button>
@@ -245,21 +248,25 @@
                 document.getElementById("throwdown-prop-txt").innerHTML = "Throwdown for $"+throwdown_amt;
                 document.getElementById("throwdown-button-div").style.display = "none";
                 document.getElementById("accept-throwdown").style.display = "none";
+                document.getElementById("proposed-td").style.display = "none";
             }
             else if (throwdown_prop_amt>0){
                 document.getElementById("throwdown-prop-txt").innerHTML = opp_name+" has proposed a throwdown for $"+throwdown_prop_amt;
                 document.getElementById("throwdown-button-div").style.display = "none";
                 document.getElementById("accept-throwdown").style.display = "block";
+                document.getElementById("proposed-td").style.display = "none";   
             }
             else if (throwdown_sent_amt>0){
                 document.getElementById("throwdown-prop-txt").innerHTML = "Throwdown proposed for $"+throwdown_sent_amt;
                 document.getElementById("throwdown-button-div").style.display = "none";
                 document.getElementById("accept-throwdown").style.display = "none";
+                document.getElementById("proposed-td").style.display = "block";
             }
             else if (throwdown_amt<0){
                 document.getElementById("throwdown-prop-txt").innerHTML = "No throwdown this week";
                 document.getElementById("throwdown-button-div").style.display = "none";
                 document.getElementById("accept-throwdown").style.display = "none";
+                document.getElementById("proposed-td").style.display = "none";
             }
         }
      }
@@ -472,6 +479,7 @@
     
     document.getElementById("throwdown-hidden").style.display = "none";
     document.getElementById("accept-throwdown").style.display = "none";
+    document.getElementById("proposed-td").style.display = "none";
     function throwdownPop() {
         var x = document.getElementById("throwdown-hidden");
         if (x.style.display === "block") {

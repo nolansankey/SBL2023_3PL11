@@ -313,6 +313,18 @@ td { font-size: 13px }
     margin: auto;
 }
 
+.sbl-payouts-section {
+    text-align: center;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    padding: 25px 0 0 0;
+    position: relative;
+    max-width: 80vw;
+    margin: auto;
+}
+
 .weeks-bets-section {
     text-align: center;
     display: flex;
@@ -342,6 +354,14 @@ td { font-size: 13px }
 .scores-score-cell {
      font-size: 11px;
     column-width: 100px;
+}
+
+.earnings-th {
+    text-align: center;
+}
+
+.earnings-cell {
+    text-align: center;
 }
 
 .standings-section {
