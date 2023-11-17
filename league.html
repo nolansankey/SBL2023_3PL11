@@ -54,6 +54,7 @@
             <tr>
               <th class="scores-th">Player</th>
               <th class="scores-th">Earned<br>(At Stake)<br>[Granted]</th>
+              <th class="scores-th">Throwdown</th>
               <th class="scores-th"accesskey="">Earned<br>(At Stake)<br>[Granted]</th>
               <th class="scores-th">Player</th>
             </tr>
@@ -110,6 +111,21 @@
       <h6>*Top 4 in each division qualify for playoffs</h6>
     </section>
       
+     <!-- Payouts Section -->
+    <section id="sbl-payous-section" class="sbl-payouts-section">
+      <h2 class="shrink-text-lg">Payouts Tracker</h2>
+      <table id="payouts-table">
+          <thead>
+            <tr>
+              <th class="earnings-th">Player</th>
+              <th class="earnings-th">Throwdown Earnings<br>(won,wagered)</th>
+              <th class="earnings-th">Make it Count Earnings<br>(won,wagered)</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+      
     <!-- Schedule Section -->
     <section id="schedule-section" class="schedule-section">
       <h2 class="shrink-text-lg">Schedule Matrix</h2>
@@ -159,7 +175,7 @@
     var in_play_idx = 6;
     var granted_balance_idx = 4;
     var earned_balance_idx = 5;
-    
+    var throwdown_amt_idx = 27;
 
      async function balance_fetch() {
         let balance_data = await fetch(balanceLink)    
@@ -178,6 +194,7 @@
                 user_e_bal = balance_data.values[users_start_idx+i][earned_balance_idx];
                 user_g_bal = balance_data.values[users_start_idx+i][granted_balance_idx];
                 user_in_bal = balance_data.values[users_start_idx+i][in_play_idx];
+                throwdown_amt = balance_data.values[users_start_idx+i][throwdown_amt_idx];
                 var cell2 = row.insertCell(1);
                 cell2.classList.add("scores-score-cell");
                 cell2.innerHTML = user_e_bal+"<br>("+user_in_bal+")<br>["+user_g_bal+"]";
@@ -191,10 +208,17 @@
                 opp_e_bal = balance_data.values[users_start_idx+opp_idx][earned_balance_idx];
                 opp_g_bal = balance_data.values[users_start_idx+opp_idx][granted_balance_idx];
                 opp_in_bal = balance_data.values[users_start_idx+opp_idx][in_play_idx];
-                var cell3 = row.insertCell(2);
+                var cell2_5 = row.insertCell(2);
+                if (throwdown_amt>0) {
+                    cell2_5.innerHTML = "$"+throwdown_amt;
+                }
+                else {
+                    cell2_5.innerHTML = "-";
+                }
+                var cell3 = row.insertCell(3);
                 cell3.classList.add("scores-score-cell");
                 cell3.innerHTML = opp_e_bal+"<br>("+opp_in_bal+")<br>["+opp_g_bal+"]";
-                var cell4 = row.insertCell(3);
+                var cell4 = row.insertCell(4);
                 cell4.innerHTML = opp_name;
                 if (Number(user_e_bal)>Number(opp_e_bal)){
                     cell2.classList.add("green_border");
@@ -263,6 +287,65 @@
             w_cell.innerHTML = league_data.values[sched_users_start_idx+j][standings_names_idx+1];
             l_cell = row.insertCell(2);
             l_cell.innerHTML = league_data.values[sched_users_start_idx+j][standings_names_idx+2];
+        }
+     }
+</script>
+
+<script>
+    const earningsLink = "https://sheets.googleapis.com/v4/spreadsheets/18P7-NHQmX6N4_lQLKEbpSZp1SbEKF0hQItTcCXvLSCw/values/Earnings Tracker/?key=AIzaSyBDAMBO6YH4isbUYYgjK1NF9LwGiur6z-Y";
+    earnings_fetch();
+
+    var table_users_start_idx = 7;
+    var table_names_idx = 1;
+    var table_td_wager_idx = 11;
+    var table_td_earned_idx = 12;
+    var table_mic_wager_idx = 9;
+    var table_mic_earned_idx = 10;
+
+     async function earnings_fetch() {
+        let earnings_data = await fetch(earningsLink)    
+            .then((response) => response.json());
+        var num_players = earnings_data.values[1][1];
+        var payouts_table = document.getElementById("payouts-table");
+        for (let j = 0; j < num_players; j++) {
+            row = payouts_table.insertRow(j+1);
+            name_cell = row.insertCell(0);
+            name_cell.innerHTML = earnings_data.values[table_users_start_idx+j][table_names_idx];
+            name_cell.classList.add("earnings-cell");
+            td_cell = row.insertCell(1);
+            td_wager = Number(earnings_data.values[table_users_start_idx+j][table_td_wager_idx]).toFixed(2);
+            td_won = Number(earnings_data.values[table_users_start_idx+j][table_td_earned_idx]).toFixed(2);
+            td_balance = (td_won-td_wager).toFixed(2);
+            if (td_balance<0){
+                td_bal_str = "-$"+String(td_balance).substring(1);
+                td_cell.classList.add("red_border");
+            }
+            else if (td_balance>0) {
+                td_bal_str = "$"+td_balance;
+                td_cell.classList.add("green_border");
+            }
+            else {
+                td_bal_str = "$"+td_balance;
+            }
+            td_cell.innerHTML = td_bal_str+"<br>("+td_won+","+td_wager+")";
+            td_cell.classList.add("earnings-cell");
+            mic_cell = row.insertCell(2);
+            mic_wager = (Math.round(Number(earnings_data.values[table_users_start_idx+j][table_mic_wager_idx])* 100) / 100).toFixed(2);
+            mic_won = (Math.round(Number(earnings_data.values[table_users_start_idx+j][table_mic_earned_idx])* 100) / 100).toFixed(2);
+            mic_balance = (Math.round((mic_won-mic_wager)* 100) / 100).toFixed(2);
+            if (mic_balance<0){
+                mic_bal_str = "-$"+String(mic_balance).substring(1);
+                mic_cell.classList.add("red_border");
+            }
+            else if (mic_balance>0) {
+                mic_bal_str = "$"+mic_balance;
+                mic_cell.classList.add("green_border");
+            }
+            else {
+                mic_bal_str = "$"+mic_balance;
+            }
+            mic_cell.innerHTML = mic_bal_str+"<br>("+mic_won+","+mic_wager+")";
+            mic_cell.classList.add("earnings-cell");
         }
      }
 </script>
