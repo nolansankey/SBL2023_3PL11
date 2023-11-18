@@ -215,7 +215,7 @@
             document.getElementById("odds-type-2").innerHTML = odd_type_2;
             document.getElementById("odds-type-3").innerHTML = odd_type_3;
             for (let i = 0; i < num_items/2; i++) {
-                var timestamp = odds_data.values[5 + i*2][1];
+                var timestamp = odds_data.values[5 + i*2][2];
                 var row1 = table.insertRow(i*2+1);
                 var row2 = table.insertRow(i*2+2);
                 var time_cell = row1.insertCell(0);
