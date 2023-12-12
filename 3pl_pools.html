@@ -1,0 +1,612 @@
+<!DOCTYPE html> 
+<html>
+  <head>
+    <title>Three Pointer League</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width", initial-scale="1">
+    
+    <!-- Keywords used in the website -->
+    <meta name="keywords" content="Three Pointer League, Three Pointer, Nolan Sankey">
+    
+    <!-- Description for Website -->
+    <meta name="description" content="The official website for Three Pointer League">
+    
+    <!-- Bootstrap.css -->
+    <link type="text/css" rel="stylesheet" href="assets/css/bootstrap.min.css">
+
+    <!-- Custom styling -->
+    <link type="text/css" rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      
+  </head>
+    
+  <!-- The #page-top ID is part of the scrolling feature - the data-spy and data-target are part of the built-in Bootstrap scrollspy function -->
+  <body id="page-top" data-spy="scroll" data-target=".navbar fixed-top">
+    <nav class="navbar navbar-fixed-top" role="navigation">
+      <div class="header">
+        <div class="header-text">
+          <h1><strong>3PL</strong></h1>
+          <p id="user-note"></p>
+        </div>
+      </div>
+      <div class="mobile-nav-button">
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+          <p><i>Menu</i></p>
+        </a>
+      </div>
+      <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul id="nav" class="nav navbar-nav">
+          <li><a href="3pl_home.html">Home</a>
+          <li><a><strong>Pools</strong></a></li>
+          <li><a href="3pl_picks.html">Full Picks</a></li>
+          <li><a href="3pl_stats.html">Statistics</a></li>
+          <li><a href="3pl_payouts.html">Payouts</a></li>
+          <li><a href="3pl_rules.html">Rules</a></li>
+          <li><a href="3pl_history.html">History</a></li>
+          <li><a href="sbl_home.html"><i>Switch to SBL</i></a></li>
+          <li><a href="javascript:void(0);" onclick="logout()">Logout</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Pools Intro Section -->
+    <section id="pools-intro-section" class="pools-intro-section">
+        <h2 id="pools-intro"><i>~Pools~</i></h2>
+        <br>
+    </section>
+        
+    <!-- Pool Info -->
+    <section id="pool-info" class="pool-info-section">
+      <form>
+        <select name="pool-select" id="pool-select">
+        </select>
+        <br/>
+        <button onclick="getPool()"> Go to Pool </button>
+        <br/>
+        <br>
+      </form>
+      <div id="pool-info-hidable">
+        <h3>Pool Scoreboard:</h3>
+        <table id="scores_table">
+        <thead>
+          <tr>
+            <th scope="col" class="wide_col">Name</th>
+            <th scope="col" class="wide_col">Score</th>
+            <th scope="col" class="wide_col">Change</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <br>
+        <h3>Pool Info:</h3>
+          <br>
+          <div id="pool-info-text"></div>
+        <br>
+        <h3>Pool History:</h3>
+          <br>
+          <div id="pool-history-text"></div>
+      </div>
+    </section>
+      
+    <!-- Pool Info -->
+    <section id="pool-signup" class="pool-signup-section">
+      <div id="pool-sign-up-hidable">
+        <h2>Join a Pool:</h2>
+        <br>
+        <h3><strong>Public Pools</strong></h3><br>
+        <div id="public_pools_list"></div>
+        <br>
+        <h3><strong>Private Pools</strong></h3><br>
+        <div id="private_pools_list"></div>
+        <br>  
+      </div>
+    </section>
+    <section id="pool-password-table" class="pool-password-table-section">
+      <h1>Pool Password Table</h1>
+      <table id="pool-passwords-logged">
+        <tr>
+          <th>Name</th>
+          <th>Password</th>
+          <th></th>
+        </tr>
+      </table>
+    </section>
+      
+    <!-- Pool Create -->
+    <section id="pool-create" class="pool-create-section">
+      <div id="pool-create-hidable">
+        <h2>Create a Pool:</h2>
+        <br>
+        <form method="POST" action="https://script.google.com/macros/s/AKfycbz4YeAAnjBJ5Qa85bt2EBiK2pC3ZT1Ll0wb9qumnyO1IV7yp-e9o4WmgNKHBGPTcNyGmg/exec" id="create-pool-form" >
+          <label>Pool Name: <br><input type="text" name="PoolName" required /></label><br>
+          <label>Password Protected?&nbsp;<input type="radio" name="pw_p"></label><br>
+          <label>Pool Password: <br><input type="text" name="PoolPassword"></label><br>
+          <label>Buy-in:&nbsp;&nbsp;</label><label>$&nbsp;</label><input type="text" name="pool-buy-in" size="3" required /><br>
+          <label>Payout Structure</label><br>
+          <label>1st:&nbsp;</label><input type="text" id="1-pays" name="1-pays" size="3" value="50" required /><label>&nbsp;%</label><br>
+          <label>2nd:&nbsp;</label><input type="text" id="2-pays" name="2-pays" size="3" value="30" required /><label>&nbsp;%</label><br>
+          <label>3rd:&nbsp;</label><input type="text" id="3-pays" name="3-pays" size="3" value="20" required /><label>&nbsp;%</label><br>
+          <label>4th:&nbsp;</label><input type="text" id="4-pays" name="4-pays" size="3" value="0" required /><label>&nbsp;%</label><br>
+          <label>5th:&nbsp;</label><input type="text" id="5-pays" name="5-pays" size="3" value="0" required /><label>&nbsp;%</label><br>
+          <br>
+          <input type="submit" id="pool-create-submit" value="Submit">
+          <p id="submit_error_text"></p>
+        </form>
+      </div>
+    </section>
+  </body>
+</html>
+
+<script>
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+    today = mm + '/' + dd + '/' + yyyy;
+</script>
+
+<script>
+    var is_logged_in = localStorage.getItem("logged-in");
+    var curr_user = localStorage.getItem("user");
+
+    
+    if(!is_logged_in){
+        window.location.replace("index.html");
+    }
+    function logout(){
+        localStorage.clear();
+        window.location.replace("index.html");
+    }
+    function link_error(){
+        var error_msg = confirm("Link error. Sorry :(");
+    }
+</script>
+
+<script>
+    var pool_registration_window = true;
+    if (pool_registration_window) {
+        document.getElementById("pool-sign-up-hidable").style.display = "clock";
+        document.getElementById("pool-create-hidable").style.display = "block";
+    }
+    else {
+        document.getElementById("pool-sign-up-hidable").style.display = "none";
+        document.getElementById("pool-create-hidable").style.display = "none";
+    }
+
+</script>
+
+
+<script>
+    
+    const poolsLookupLink = "https://sheets.googleapis.com/v4/spreadsheets/1TF3Cdoi614IKqOoedxqqC4e6HATXZ4WRkZO0342Hnyk/values/Pool Participation/?key=AIzaSyBDAMBO6YH4isbUYYgjK1NF9LwGiur6z-Y";
+    pool_name_fetch();
+    
+    pool_lookup_name_start_idx = 6;
+    pool_lookup_name_idx = 0;
+    pool_lookup_num_pools_idx = 1;
+    pool_lookup_pools_start_idx = 2;
+    pool_count_col = 11;
+    pool_first_name_col = 15;
+    pool_need_pw_row = 2;
+    pool_pw_row = 3;
+    
+    //var selected_pool_pw = "";
+    
+    async function pool_name_fetch(){
+        let pool_name_data = await fetch(poolsLookupLink)    
+          .then((response) => response.json());
+        var num_payers = pool_name_data.values[1][1];
+        var curr_user = localStorage.getItem("user");
+        for (let i = 0; i < num_payers; i++) {
+            var player = pool_name_data.values[pool_lookup_name_start_idx+i][pool_lookup_name_idx];
+            if (player==curr_user){
+                num_pools = pool_name_data.values[pool_lookup_name_start_idx+i][pool_lookup_num_pools_idx];
+                for (let j = 0; j < num_pools; j++) {
+                    pool_name = pool_name_data.values[pool_lookup_name_start_idx+i][pool_lookup_pools_start_idx+j];
+                    var option = document.createElement("option");
+                    option.text = pool_name;
+                    document.getElementById("pool-select").add(option);
+                }
+            }
+        }
+        var num_pools = pool_name_data.values[0][pool_count_col];
+        for (let j = 0; j < num_pools; j++) {
+            a_pool_name = pool_name_data.values[0][pool_first_name_col+j];
+            a_pool_need_pw = pool_name_data.values[pool_need_pw_row][pool_first_name_col+j];
+            a_pool_pw = pool_name_data.values[pool_pw_row][pool_first_name_col+j];
+            var option = document.createElement("option");
+            option.text = a_pool_name;
+            document.getElementById("all-pool-select").add(option);
+            var table = document.getElementById("pool-passwords-logged");
+            var row = table.insertRow(1+j); 
+            cell1 = row.insertCell(0);
+            cell1.innerHTML = a_pool_name;
+            cell2 = row.insertCell(1);
+            if (a_pool_need_pw=="TRUE") {
+                cell2.innerHTML = a_pool_pw;
+            }
+            else{
+                cell2.innerHTML = false;
+            }
+        }
+    }
+    
+    pool_name_row = 2;
+    
+    document.getElementById("pool-password-table").style.display = "none";
+    
+    const scoresReqLink = "https://sheets.googleapis.com/v4/spreadsheets/1TF3Cdoi614IKqOoedxqqC4e6HATXZ4WRkZO0342Hnyk/values/Pools/?key=AIzaSyBDAMBO6YH4isbUYYgjK1NF9LwGiur6z-Y";
+    
+    getInfo();
+    
+
+    function getInfo(){
+        all_pool_info_fetch();
+    }
+
+        
+    async function all_pool_info_fetch(){
+        let pool_scores_data = await fetch(scoresReqLink)  
+          .then((response) => response.json());
+        num_pools = pool_scores_data.values[0][0];
+        for (let i = 0; i < num_pools; i++) {
+            var pool_name = pool_scores_data.values[pool_name_row][pool_first_idx+pool_spacing*i];
+            pool_col = pool_first_idx+pool_spacing*i;
+            pool_has_pw = pool_scores_data.values[pool_has_pw_row][pool_col];
+            section_to_add_to = document.getElementById("public_pools_list");
+            if (pool_has_pw){
+                section_to_add_to = document.getElementById("private_pools_list");
+            }
+            pool_players = pool_scores_data.values[pool_players_row][pool_col];
+            pool_players_txt = "<strong>Current Players:</strong>";
+            already_in = false;
+            for (let j = 0; j < pool_players; j++) {
+                player_name = pool_scores_data.values[pool_data_start_row+j][pool_col+pool_names_add];
+                pool_players_txt = pool_players_txt+"<br>"+player_name;
+                if(player_name==curr_user){
+                    already_in = true;
+                }
+            }  
+            pool_host = pool_scores_data.values[pool_host_row][pool_col];
+            const pool_h = document.createElement("h4");
+            pool_h.innerHTML = "<strong><u>"+pool_name+"</u></strong>";
+            section_to_add_to.appendChild(pool_h);
+            const para = document.createElement("p");
+            para.innerHTML = "<strong>Host:</strong> "+pool_host;
+            section_to_add_to.appendChild(para);
+            pool_buy_in = pool_scores_data.values[pool_buy_in_row][pool_col];
+            const para2 = document.createElement("p");
+            para2.innerHTML = "<strong>Buy in:</strong> $"+pool_buy_in;
+            section_to_add_to.appendChild(para2);
+            pool_duration = pool_scores_data.values[pool_duration_row][pool_col];
+            const para3 = document.createElement("p");
+            para3.innerHTML = "<strong>Duration:</strong> "+pool_duration+" weeks";
+            section_to_add_to.appendChild(para3);
+            pool_place_prizes = pool_scores_data.values[pool_place_prizes_row][pool_col];
+            payouts_structure_text = "<strong>Pay-outs:</strong> &nbsp;";
+            for (let k = 0; k < pool_place_prizes; k++) {
+                payout_percentage = pool_scores_data.values[pool_percentages_start_row+k][pool_col];
+                payout_percentage = payout_percentage * 100;
+                pos = k+1;
+                payouts_structure_text = payouts_structure_text+pos+") "+payout_percentage+"%&nbsp;&nbsp; ";
+            }
+            const para4 = document.createElement("p");
+            para4.innerHTML = payouts_structure_text;
+            section_to_add_to.appendChild(para4);
+            const para5 = document.createElement("p");
+            para5.innerHTML = pool_players_txt;
+            section_to_add_to.appendChild(para5);
+            pool_has_pw = pool_scores_data.values[pool_has_pw_row][pool_col];
+            if (already_in) {
+                const para6 = document.createElement("p");
+                para6.innerHTML = "<strong><i>Already in pool!</i></strong><br><br>";
+                section_to_add_to.appendChild(para6);
+            }
+            else if (pool_has_pw!="FALSE"){
+                var pool_form = document.createElement('form');
+                pool_form.setAttribute("method","POST");
+                pool_form.setAttribute("action","https://script.google.com/macros/s/AKfycbxyatDdvSPtqfNJ8ZKY_Udy2sZgw3vx1UCJiL0TQhqqgAvHxc3MMhZUEi_ynmhWKZogBA/exec");
+                var pw_label = document.createElement('label');
+                pw_label.innerHTML = "Pool Password: ";
+                pw_label.setAttribute("id","pool-pw");
+                var pw_input = document.createElement('input');
+                pw_input.setAttribute("type","text");
+                pw_input.setAttribute("type","text");
+                pw_input.setAttribute("id","pool-pw-typed");
+                pw_input.setAttribute("class","input-box");
+                pw_input.setAttribute("size","12");
+                pool_form.appendChild(pw_label);
+                pw_label.appendChild(pw_input);
+                const newButton = document.createElement('button');
+                newButton.textContent = "Join Pool";
+                newButton.setAttribute("type","submit");
+                newButton.setAttribute("class","joinpool");
+                pool_form.appendChild(document.createElement('br'));
+                pool_form.appendChild(newButton);
+                pool_form.appendChild(document.createElement('br'));
+                pool_form.appendChild(document.createElement('br'));
+                section_to_add_to.appendChild(pool_form);
+            }
+            else {
+
+            }
+        }
+        update_join_buttons();
+    }
+  
+    
+    function update_join_buttons(){
+        let elementsArray = document.querySelectorAll("button.joinpool");
+        document.getElementById("pools-intro").innerHTML = elementsArray;
+        
+        elementsArray.forEach(function(elem) {
+            document.getElementById("pools-intro").innerHTML = elem;
+            elem.addEventListener("submit", function(e) {
+                e.preventDefault();
+                const data = new FormData(join_form);
+                entered_pool = document.getElementById("all-pool-select").value;
+                entered_pw = data.get("pool-pw-typed");
+                searchPwTable(entered_pool, entered_pw);
+                document.getElementById("pools-intro").innerHTML = entered_pw;
+                if (!pw_display){
+                    data.append("JoinPool", true);
+                    data.append("PoolName", entered_pool);
+                    data.append("Name",curr_user);
+                    const action = e.target.action;
+                    fetch(action, {
+                        method: 'POST',
+                        body: data,
+                    })
+                    .then(() => {
+                        var r = confirm("Pool joined successfully! Find your new pool in the pools list. You can still join or create other pools now!");
+                        if (r == true){
+                            window.location.reload();
+                        }
+                    })
+                }   
+            });
+        });
+    }
+
+        window.addEventListener("load", function() {
+            var join_form = document.getElementById('join-pool-form');
+            join_form.addEventListener("submit", function(e) {
+                e.preventDefault();
+                const data = new FormData(join_form);
+                entered_pool = document.getElementById("all-pool-select").value;
+                entered_pw = data.get("pool-pw-typed");
+                searchPwTable(entered_pool, entered_pw);
+                if (!pw_display){
+                    data.append("JoinPool", true);
+                    data.append("PoolName", entered_pool);
+                    data.append("Name",curr_user);
+                    const action = e.target.action;
+                    fetch(action, {
+                        method: 'POST',
+                        body: data,
+                    })
+                    .then(() => {
+                        var r = confirm("Pool joined successfully! Find your new pool in the pools list. You can still join or create other pools now!");
+                        if (r == true){
+                            window.location.reload();
+                        }
+                    })
+                }   
+            });
+        });
+
+    
+    pw_display = false;
+    function searchPwTable(un, pw) {
+        var table = document.getElementById("pool-passwords-logged");
+        // Loop through all table rows
+        for (i = 1; i < table.rows.length; i++) {
+            var idx_name = table.rows[i].cells[0].innerText;
+            if (idx_name==un){
+                var idx_pw = table.rows[i].cells[1].innerText;
+                document.getElementById("pools-intro").innerHTML = pw;
+                if (idx_pw==pw){
+                    document.getElementById("incorrect_pool_pw").style.display = "none";
+                    document.getElementById("hidden-pw-field").style.display = "none";
+                    pw_display = false;
+                }
+                else if (idx_pw=false){
+                    document.getElementById("incorrect_pool_pw").style.display = "none";
+                    document.getElementById("hidden-pw-field").style.display = "none";
+                    pw_display = false;
+                }
+                else {
+                    if (pw_display){
+                        document.getElementById("incorrect_pool_pw").style.display = "none";
+                        document.getElementById("incorrect_pool_pw").innerHTML = "Incorrect password";
+                        pw_display = true;
+                    }
+                    else {
+                        document.getElementById("hidden-pw-field").style.display = "block";
+                        pw_display = true;
+                    }
+                }
+            }          
+        }
+    }
+    
+    document.getElementById("pool-info-hidable").style.display = "none";
+
+
+    function getPool() {
+        event.preventDefault();
+        clearScoresTable();
+        pool_req = document.getElementById("pool-select").value;
+        document.getElementById("pool-info-hidable").style.display = "block";
+        scores_req_data_fetch();
+    }
+    
+    function clearScoresTable(){
+            var myTable = document.getElementById("scores_table");
+            var rowCount = myTable.rows.length;
+            for (var x=rowCount-1; x>0; x--) {
+                myTable.deleteRow(x);
+            }
+        }
+    
+    pool_first_idx = 2;
+    pool_spacing = 11;
+    pool_name_row = 2;
+    pool_players_row = 13;
+    pool_has_pw_row = 5;
+    pool_data_start_row = 15;
+    pool_names_add = 2;
+    pool_scores_add = 3;
+    pool_change_add = 8;
+    pool_rank_add = 6;
+    
+    pool_host_row = 1;
+    pool_buy_in_row = 5;
+    pool_duration_row = 6;
+    pool_place_prizes_row = 7;
+    pool_percentages_start_row = 8;
+    
+    info_sets_col_add_idx = -1;
+    history_data_start_row = 40;
+    history_row_skip = 5;
+    history_week_add_col = 0;
+    history_name_add_col = 1;
+    history_place_add_col = 2;
+    history_payout_add_col = 3;
+
+    
+    async function scores_req_data_fetch(){
+        document.getElementById("pool-info-text").innerHTML="";
+        document.getElementById("pool-history-text").innerHTML="";
+        let pool_scores_data = await fetch(scoresReqLink)    
+          .then((response) => response.json());
+        var table = document.getElementById("scores_table");
+        var curr_user = localStorage.getItem("user");
+        var pool_req = document.getElementById("pool-select").value;
+        num_pools = pool_scores_data.values[0][0];
+        for (let i = 0; i < num_pools; i++) {
+            var pool_name = pool_scores_data.values[pool_name_row][pool_first_idx+pool_spacing*i];
+            if (pool_name==pool_req){
+                pool_col = pool_first_idx+pool_spacing*i;
+                pool_players = pool_scores_data.values[pool_players_row][pool_col];
+                for (let j = 0; j < pool_players; j++) {
+                    player_name = pool_scores_data.values[pool_data_start_row+j][pool_col+pool_names_add];
+                    player_score = pool_scores_data.values[pool_data_start_row+j][pool_col+pool_scores_add];
+                    player_change = pool_scores_data.values[pool_data_start_row+j][pool_col+pool_change_add];
+                    player_rank = pool_scores_data.values[pool_data_start_row+j][pool_col+pool_rank_add];
+                    var row_add = j+1;
+                    var row = table.insertRow(row_add);
+                    var cell1 = row.insertCell(0);
+                    cell1.innerHTML = player_name;
+                    var cell2 = row.insertCell(1);
+                    cell2.innerHTML = player_score;
+                    var cell3 = row.insertCell(2);
+                    cell3.innerHTML = player_change;
+                    if (player_name==curr_user){
+                        cell1.classList.add("user-cell");
+                        cell2.classList.add("user-cell");
+                        cell3.classList.add("user-cell");
+                    }
+                    if (player_rank==1){
+                        cell2.classList.add("green_border");
+                    }
+                }
+                
+                
+                pool_host = pool_scores_data.values[pool_host_row][pool_col];
+                const para = document.createElement("p");
+                para.innerHTML = "<strong>Host:</strong> "+pool_host;
+                document.getElementById("pool-info-text").appendChild(para);
+                pool_buy_in = pool_scores_data.values[pool_buy_in_row][pool_col];
+                const para2 = document.createElement("p");
+                para2.innerHTML = "<strong>Buy in:</strong> $"+pool_buy_in;
+                document.getElementById("pool-info-text").appendChild(para2);
+                pool_duration = pool_scores_data.values[pool_duration_row][pool_col];
+                const para3 = document.createElement("p");
+                para3.innerHTML = "<strong>Duration:</strong> "+pool_duration+" weeks";
+                document.getElementById("pool-info-text").appendChild(para3);
+                pool_place_prizes = pool_scores_data.values[pool_place_prizes_row][pool_col];
+                total_cash_per_week = Number(pool_players)*Number(pool_buy_in)/Number(pool_duration);
+                const para4 = document.createElement("p");
+                payouts_structure_text = "<strong>Pay-outs:</strong> &nbsp;";
+                for (let k = 0; k < pool_place_prizes; k++) {
+                    payout_percentage = pool_scores_data.values[pool_percentages_start_row+k][pool_col];
+                    payout_add = total_cash_per_week*payout_percentage;
+                    payout_add_digits = Number(payout_add).toFixed(2);
+                    pos = k+1;
+                    payouts_structure_text = payouts_structure_text+pos+") $"+payout_add_digits+"&nbsp;&nbsp; ";
+                }
+                para4.innerHTML = payouts_structure_text;
+                document.getElementById("pool-info-text").appendChild(para4);
+                
+                info_sets = pool_scores_data.values[history_data_start_row][pool_col+info_sets_col_add_idx];
+                for (let n = 0; n < info_sets; n++) {
+                    week_info = pool_scores_data.values[history_data_start_row+n*history_row_skip][pool_col+history_week_add_col];
+                    const h_para = document.createElement("p");
+                    h_para.innerHTML = "<strong><u>"+week_info+"</u></strong>";
+                    document.getElementById("pool-history-text").appendChild(h_para);
+                    for (let m = 0; m < pool_place_prizes; m++) {
+                        place_info = pool_scores_data.values[history_data_start_row+n*history_row_skip+m][pool_col+history_place_add_col];
+                        player_name = pool_scores_data.values[history_data_start_row+n*history_row_skip+m][pool_col+history_name_add_col];
+                        payout_info = pool_scores_data.values[history_data_start_row+n*history_row_skip+m][pool_col+history_payout_add_col];
+                        const para1 = document.createElement("p");
+                        para1.innerHTML = place_info+") "+player_name+" "+payout_info;
+                        document.getElementById("pool-history-text").appendChild(para1);
+                    }
+                }
+            }
+        }
+    }
+    
+</script>
+
+<script>
+    window.addEventListener("load", function() {
+        var reg_form = document.getElementById('create-pool-form');
+        reg_form.addEventListener("submit", function(e) {
+            e.preventDefault();
+            document.getElementById("pool-create-submit").disabled=true;
+            const data = new FormData(reg_form);
+            data.append("CreatePool", true);
+            data.append("Host", curr_user);
+            var pay_1_val = Number(document.getElementById("1-pays").value);
+            var pay_2_val = Number(document.getElementById("2-pays").value);
+            var pay_3_val = Number(document.getElementById("3-pays").value);
+            var pay_4_val = Number(document.getElementById("4-pays").value);
+            var pay_5_val = Number(document.getElementById("5-pays").value);
+            sum_validator = pay_1_val+pay_2_val+pay_3_val+pay_4_val+pay_5_val;
+            if(sum_validator==100){
+                const action = e.target.action;
+                fetch(action, {
+                    method: 'POST',
+                    body: data,
+                })
+                .then(() => {
+                    var r = confirm("Pool Creation Successful. You should now be able to see the pool in the pools dropdow. Text your friends to tell them to join!");
+                    if (r == true){
+                        window.location.reload();
+                    }
+                })
+            }
+            else{
+                document.getElementById("submit_error_text").innerHTML = "Payout values must sum to 100%";
+                document.getElementById("pool-create-submit").disabled=false;
+            }
+        });
+    });
+</script>
+
+<script>
+    if (window.innerWidth < 766) {
+        document.getElementById("nav").style.display = "none";
+    }
+    function myFunction() {
+        var x = document.getElementById("nav");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
+        }
+    }
+</script>
