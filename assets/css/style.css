@@ -10,7 +10,6 @@ body {
   width: 100%;
   height: 100%;
   font-size: 1.8rem;
-  font-family: "Fira Sans", sans-serif;
   color: #383838;
   background-color: #FCF6F5;
   position: relative;
@@ -19,8 +18,7 @@ body {
 td { font-size: 13px }
 
 .navbar {
-    background-color: #7b9acc;
-	color: #000;
+	background-color: #7b9acc;
     padding: 25px 40px;
     width: 100%;
     height: auto;
@@ -32,8 +30,11 @@ td { font-size: 13px }
     width: 100%;
     padding: 20 0;
     text-align: center;
-    font-family: "Franklin Gothic";
     font-style: italic;
+}
+
+.navbar-fixed-top .navbar-collapse {
+    max-height: 600px;
 }
 
 .header-text > h1 {
@@ -42,10 +43,11 @@ td { font-size: 13px }
 
 .navbar-collapse {
     float: left;
+    height: 100%;
 }
 
 .navbar-nav > li > a {
-  color: #000;
+  color: yellow;
   font-size: 18px;
   font-weight: 400;
 }
@@ -89,6 +91,7 @@ td { font-size: 13px }
         font-size: 18px;
         font-weight: 400;
         text-align: center;
+        text-decoration: none;
     }
     
     .mobile-nav-button {
@@ -141,8 +144,10 @@ td { font-size: 13px }
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    padding: 50px 0 0 0;
+    padding: 30px 0 30px 0;
+    color: black;
 }
+
 
 .matchup-section {
     text-align: center;
@@ -180,6 +185,74 @@ td { font-size: 13px }
     padding: 50px 0 0 0;
 }
 
+.home_q_div {
+    background-color: #CCC;
+    padding = 15px 15px;
+    border-radius: 8px;
+    padding: 5px 10px;
+    margin: 5px 8px 10px 8px;
+}
+
+.q_button {
+  float: center;
+  position: relative;
+  display: inline-block;
+  border-radius: 4px;
+  vertical-align: middle;
+}
+
+.already_picked_label{
+    margin: 7px 0 0 0;
+}
+
+.button-input {
+    height: 4px;
+    width: 0px;
+}
+
+.half_button{
+  width: 45%;
+  height: 40px;
+  margin: 0 0 5px 0;
+}
+
+.full_button{
+  width: 91.5%;
+  height: 40px;
+  margin: 0 0 10px 0;
+}
+
+.green_button{
+    background-color: green;
+}
+
+.red_button{
+    background-color: red;
+}
+
+.blue_button{
+    background-color: #808080;
+}
+
+.q_button label,
+.q_button input {
+  display: block;
+}
+
+.q_button input[type="radio"] {
+  opacity: 0.011;
+  z-index: 100;
+}
+
+.big-submit {
+    width: 80%;
+    height: 80px;
+    font-size: 40px;
+    border: 0px;
+    background-color: #7b9acc;
+    border-radius: 8px;
+}
+
 .settled-bets-section {
     text-align: center;
     display: flex;
@@ -204,7 +277,7 @@ td { font-size: 13px }
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    padding: 150px 5% 150px 5%;
+    padding: 100px 5% 150px 5%;
 }
 
 .opp-bets-section {
@@ -562,8 +635,8 @@ td { font-size: 13px }
     }
 
     .std_col {
-        min-width: 50px;
-        max-width: 50px;
+        min-width: 100px;
+        max-width: 100px;
     }
     
     tr {
@@ -719,11 +792,14 @@ table {
   border: 1px solid grey;
   font-size: 12pt;
   border-collapse: collapse;
+  border-collapse: collapse;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
 table thead th,
 table tfoot th {
   color: #777;
+  height: 20px;
   background: rgba(0,0,0,.1);
 }
 

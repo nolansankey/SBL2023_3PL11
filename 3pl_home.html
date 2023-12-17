@@ -38,13 +38,13 @@
       <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul id="nav" class="nav navbar-nav">
           <li><a><strong>Home</strong></a></li>
-          <li><a href="3pl_pools.html">Pools</a></li>  
+          <li><a href="3pl_pools.html">Pools</a></li>
           <li><a href="3pl_picks.html">Full Picks</a></li>
           <li><a href="3pl_stats.html">Statistics</a></li>
           <li><a href="3pl_payouts.html">Payouts</a></li>
           <li><a href="3pl_rules.html">Rules</a></li>
           <li><a href="3pl_history.html">History</a></li>
-          <li id="sbl_switch"><a href="sbl_home.html"><i>Switch to SBL</i></a></li>
+          <li><a href="sbl_home.html"><i>Switch to SBL</i></a></li>
           <li><a href="javascript:void(0);" onclick="logout()">Logout</a></li>
         </ul>
       </div>
@@ -52,80 +52,119 @@
 
     <!-- Welcome Section -->
     <section id="welcome" class="welcome-section">
-        <h1 id="user-intro"></h1>
-        <br>
-        <h3 id="pick-status"></h3>
+        <div id="home_intro_div">
+            <h2><strong><i>Today's Questions</i></strong></h2>
+          <h4 id="pick-status"></h4>
+        </div>
     </section>
         
     <!-- Todays Picks Section -->
     <section id="todays-picks" class="todays-picks-section">
-      <h1 id="test_id">Today's Questions</h1>
       <div id="yet-to-pick">
-        <form method="POST" action="https://script.google.com/macros/s/AKfycbxcQ1ZiUOjv2OOJMCd6kBvNLDevt8V8usvM0rSN405r-v-rwb2xbvBEX5VypQWAZG4YYA/exec" id="picks-form">
-          
-          <h3 id="q1_text">Question Error</h3>
-          <h4><a id="q1_link_1" href="javascript:void(0);" onclick="link_error()" rel="noopener noreferrer">(ESPN page)</a></h4>
+        <form method="POST" action="https://script.google.com/macros/s/AKfycbxTGjGJ5zYl-qNcIKaNWjz6wTcLjleztzDrp6YtjX1trQSNEMLSlyAud3r28DBE6CElZQ/exec" id="picks-form">
+          <div class="home_q_div">
+              <h5><i>Question 1</i></h5>
+              <h3 id="q1_text">Question Error</h3>
+              <h4><a id="q1_link_1" href="javascript:void(0);" onclick="link_error()" rel="noopener noreferrer">(ESPN page)</a></h4>
+              <br>
+              <div id="q1_button_yes" class="q_button half_button green_button" onclick="adj_buttons('1','yes')">
+                <input type="radio" id="q1_yes" name="Q1" value="yes" class="button-input" required>
+                <label id="q1_yes_label" for="q1_yes">YES</label>
+              </div>
+              <div id="q1_button_no" class="q_button half_button red_button" onclick="adj_buttons('1','no')">
+                <input type="radio" id="q1_no" name="Q1" value="no" class="button-input" required>
+                <label id="q1_no_label" for="q1_no" >NO</label>
+              </div>
+              <div id="q1_button_opt_out" class="q_button full_button blue_button" onclick="adj_buttons('1','opt out')">
+                <input type="radio" id="q1_opt-out" name="Q1" value="opt out" class="button-input" required>
+                <label id="q1_opt-out_txt" for="q1_opt-out">OPT OUT</label>
+              </div>
+          </div>
+            
+          <div class="home_q_div">
+              <h5><i>Question 2</i></h5>
+              <h3 id="q2_text">Question Error</h3>
+              <h4><a id="q2_link_1" href="javascript:void(0);" onclick="link_error()" rel="noopener noreferrer">(ESPN page)</a></h4>
+              <br>
+              <div id="q2_button_yes" class="q_button half_button green_button" onclick="adj_buttons('2','yes')">
+                <input type="radio" id="q2_yes" name="Q2" value="yes" class="button-input" required>
+                <label id="q2_yes_label" for="q2_yes">YES</label>
+              </div>
+              <div id="q2_button_no" class="q_button half_button red_button" onclick="adj_buttons('2','no')">
+                <input type="radio" id="q2_no" name="Q2" value="no" class="button-input" required>
+                <label id="q2_no_label" for="q2_no" >NO</label>
+              </div>
+              <div id="q2_button_opt_out" class="q_button full_button blue_button" onclick="adj_buttons('2','opt out')">
+                <input type="radio" id="q2_opt-out" name="Q2" value="opt out" class="button-input" required>
+                <label id="q2_opt-out_txt" for="q2_opt-out">OPT OUT</label>
+              </div>
+          </div>
+            
+          <div class="home_q_div">
+              <h5><i>Question 3</i></h5>
+              <h3 id="q3_text">Question Error</h3>
+              <h4><a id="q3_link_1" href="javascript:void(0);" onclick="link_error()" rel="noopener noreferrer">(ESPN page)</a></h4>
+              <br>
+              <div id="q3_button_yes" class="q_button half_button green_button" onclick="adj_buttons('3','yes')">
+                <input type="radio" id="q3_yes" name="Q3" value="yes" class="button-input" required>
+                <label id="q3_yes_label" for="q3_yes">YES</label>
+              </div>
+              <div id="q3_button_no" class="q_button half_button red_button" onclick="adj_buttons('3','no')">
+                <input type="radio" id="q3_no" name="Q3" value="no" class="button-input" required>
+                <label id="q3_no_label" for="q3_no" >NO</label>
+              </div>
+              <div id="q3_button_opt_out" class="q_button full_button blue_button" onclick="adj_buttons('3','opt out')">
+                <input type="radio" id="q3_opt-out" name="Q3" value="opt out" class="button-input" required>
+                <label id="q3_opt-out_txt" for="q3_opt-out">OPT OUT</label>
+              </div>
+          </div>
           <br>
-          <input type="radio" id="q1_yes" name="Q1" value="yes">
-          <label id="q1_yes_label" for="q1_yes">YES</label><br>
-          <input type="radio" id="q1_no" name="Q1" value="no">
-          <label id="q1_no_label" for="q1_no">NO</label><br>
-          <input type="radio" id="q1_opt-out" name="Q1" value="opt out">
-          <label id="q1_opt-out_txt" for="q1_opt-out">OPT OUT</label><br><br>
-              
-          <h3 id="q2_text">Question Error</h3>
-          <h4><a id="q2_link_1" href="javascript:void(0);" onclick="link_error()" rel="noopener noreferrer">(ESPN page)</a></h4>
-          <input type="radio" id="q2_yes" name="Q2" value="yes">
-          <label id="q2_yes_label" for="q2_yes">YES</label><br>
-          <input type="radio" id="q2_no" name="Q2" value="no">
-          <label id="q2_no_label" for="q2_no">NO</label><br>
-          <input type="radio" id="q2_opt-out" name="Q2" value="opt out">
-          <label id="q2_opt-out_txt" for="q2_opt-out">OPT OUT</label><br><br>
-          
-          <h3 id="q3_text">Question Error</h3>
-          <h4><a id="q3_link_1" href="javascript:void(0);" onclick="link_error()" rel="noopener noreferrer">(ESPN page)</a></h4>
-          <br>
-          <input type="radio" id="q3_yes" name="Q3" value="yes">
-          <label id="q3_yes_label" for="q3_yes">YES</label><br>
-          <input type="radio" id="q3_no" name="Q3" value="no">
-          <label id="q3_no_label" for="q3_no">NO</label><br>
-          <input type="radio" id="q3_opt-out" name="Q3" value="opt out">
-          <label id="q3_opt-out_txt" for="q3_opt-out">OPT OUT</label><br><br>
-          
-          <input type="submit" id="pick-submit" value="Submit">
+          <input type="submit" id="pick-submit" class="big-submit" value="Submit" onclick="check_req_submit()">
         </form>
       </div>
+        
       <div id="already-picked">
-        <h3 id="q1_ap_text">Question Error</h3>
-        <h4><a id="q1_link_2" href="javascript:void(0);" onclick="link_error()" rel="noopener noreferrer">(ESPN page)</a></h4>
-        <br>
-        <p id="completed_q1_pick"></p>
-        <br>
-        <br>
+        <div class="home_q_div">
+            <h5><i>Question 1</i></h5>
+            <h3 id="q1_ap_text">Question Error</h3>
+            <h4><a id="q1_link_2" href="javascript:void(0);" onclick="link_error()" rel="noopener noreferrer">(ESPN page)</a></h4>
+            <br>
+            <div id="q_1_picked_button" class="q_button full_button">
+              <label id="q_1_picked_label" class="already_picked_label"></label>
+            </div>
+        </div>
               
-        <h3 id="q2_ap_text">Question Error</h3>
-        <h4><a id="q2_link_2" href="javascript:void(0);" onclick="link_error()" rel="noopener noreferrer">(ESPN page)</a></h4>
-        <br>
-        <p id="completed_q2_pick"></p>
-        <br>
-        <br>
+        <div class="home_q_div">
+            <h5><i>Question 2</i></h5>
+            <h3 id="q2_ap_text">Question Error</h3>
+            <h4><a id="q2_link_2" href="javascript:void(0);" onclick="link_error()" rel="noopener noreferrer">(ESPN page)</a></h4>
+            <br>
+            <div id="q_2_picked_button" class="q_button full_button">
+              <label id="q_2_picked_label" class="already_picked_label"></label>
+            </div>
+        </div>
          
-        <h3 id="q3_ap_text">Question Error</h3>
-        <h4><a id="q3_link_2" href="javascript:void(0);" onclick="link_error()" rel="noopener noreferrer">(ESPN page)</a></h4>
+        <div class="home_q_div">
+            <h5><i>Question 3</i></h5>
+            <h3 id="q3_ap_text">Question Error</h3>
+            <h4><a id="q3_link_2" href="javascript:void(0);" onclick="link_error()" rel="noopener noreferrer">(ESPN page)</a></h4>
+            <br>
+            <div id="q_3_picked_button" class="q_button full_button">
+              <label id="q_3_picked_label" class="already_picked_label"></label>
+            </div>
+        </div>
         <br>
-        <p id="completed_q3_pick"></p>
-        <br>
-        <br>
-        <form method="POST" action="https://script.google.com/macros/s/AKfycbxcQ1ZiUOjv2OOJMCd6kBvNLDevt8V8usvM0rSN405r-v-rwb2xbvBEX5VypQWAZG4YYA/exec" id="clear-form">
-          <input type="submit" id="clear-pick-submit" name="clear" value="Clear My Picks and Resubmit">
+        <form method="POST" action="https://script.google.com/macros/s/AKfycbxTGjGJ5zYl-qNcIKaNWjz6wTcLjleztzDrp6YtjX1trQSNEMLSlyAud3r28DBE6CElZQ/exec" id="clear-form">
+          <input type="submit" id="clear-pick-submit" class="big-submit" name="clear" value="Clear Picks">
         </form>
       </div>
+      <h4 id="below_sub_msg"></h4>
     </section>
       
 
     <!-- Scoreboard Section -->
     <section id="scores-section" class="scores-section">
-      <h1 class="shrink-text-lg">View Scores</h1>
+      <h2>View Scores</h2>
       <p id="scores_text"></p>
       <form>
         <select name="pool-select" id="pool-select">
@@ -136,7 +175,7 @@
         <br/>
         <br>
     </form>
-      <table id="scores_table">
+      <table id="scores_table" class="styled-table">
         <thead>
           <tr>
             <th scope="col" class="wide_col">Name</th>
@@ -163,7 +202,6 @@
     var is_logged_in = localStorage.getItem("logged-in");
     var curr_user = localStorage.getItem("user");
     document.getElementById("user-note").innerHTML = curr_user;
-    document.getElementById("user-intro").innerHTML = "Hi "+curr_user+"!";
     if(!is_logged_in){
         window.location.replace("index.html");
     }
@@ -195,16 +233,61 @@
             }
         }
         if (has_picked){
-            document.getElementById("completed_q1_pick").innerHTML = "Your Pick: "+q1_pick;
-            document.getElementById("completed_q2_pick").innerHTML = "Your Pick: "+q2_pick;
-            document.getElementById("completed_q3_pick").innerHTML = "Your Pick: "+q3_pick;
+           if(q1_pick == "yes"){
+               document.getElementById("q_1_picked_label").innerHTML = "YES";
+               document.getElementById("q_1_picked_button").setAttribute("class","q_button full_button green_button");
+           }
+           if(q1_pick == "no"){
+                document.getElementById("q_1_picked_label").innerHTML = "NO";
+               document.getElementById("q_1_picked_button").setAttribute("class","q_button full_button red_button");
+           }
+           if(q1_pick == "opt out"){
+                document.getElementById("q_1_picked_label").innerHTML = "OPT OUT";
+               document.getElementById("q_1_picked_button").setAttribute("class","q_button full_button blue_button");
+            }
+            if(q1_pick == "late"){
+                document.getElementById("q_1_picked_label").innerHTML = "LATE";
+               document.getElementById("q_1_picked_button").setAttribute("class","q_button full_button blue_button");
+            }
+            if(q2_pick == "yes"){
+               document.getElementById("q_2_picked_label").innerHTML = "YES";
+               document.getElementById("q_2_picked_button").setAttribute("class","q_button full_button green_button");
+           }
+           if(q2_pick == "no"){
+                document.getElementById("q_2_picked_label").innerHTML = "NO";
+               document.getElementById("q_2_picked_button").setAttribute("class","q_button full_button red_button");
+           }
+           if(q2_pick == "opt out"){
+                document.getElementById("q_2_picked_label").innerHTML = "OPT OUT";
+               document.getElementById("q_2_picked_button").setAttribute("class","q_button full_button blue_button");
+            }
+            if(q2_pick == "late"){
+                document.getElementById("q_2_picked_label").innerHTML = "LATE";
+               document.getElementById("q_2_picked_button").setAttribute("class","q_button full_button blue_button");
+            }
+            if(q3_pick == "yes"){
+               document.getElementById("q_3_picked_label").innerHTML = "YES";
+               document.getElementById("q_3_picked_button").setAttribute("class","q_button full_button green_button");
+           }
+           if(q3_pick == "no"){
+                document.getElementById("q_3_picked_label").innerHTML = "NO";
+               document.getElementById("q_3_picked_button").setAttribute("class","q_button full_button red_button");
+           }
+           if(q3_pick == "opt out"){
+                document.getElementById("q_3_picked_label").innerHTML = "OPT OUT";
+               document.getElementById("q_3_picked_button").setAttribute("class","q_button full_button blue_button");
+            }
+            if(q3_pick == "late"){
+                document.getElementById("q_3_picked_label").innerHTML = "LATE";
+               document.getElementById("q_3_picked_button").setAttribute("class","q_button full_button blue_button");
+            }
         
-            document.getElementById("pick-status").innerHTML = "Your picks today are submitted";
+            document.getElementById("pick-status").innerHTML = "<i>Picks Submitted</i>";
             document.getElementById('yet-to-pick').style.display = 'none'; 
             document.getElementById('already-picked').style.display = 'block'; 
         }
         else {
-            document.getElementById("pick-status").innerHTML = "You have yet to pick today";
+            document.getElementById("pick-status").innerHTML = "<i>Yet To Pick</i>";
             document.getElementById('yet-to-pick').style.display = 'block'; 
             document.getElementById('already-picked').style.display = 'none'; 
         }
@@ -217,6 +300,8 @@
         p_form.addEventListener("submit", function(e) {
             e.preventDefault();
             document.getElementById("pick-submit").disabled=true;
+            document.getElementById("pick-submit").setAttribute("value","Submitting...");
+            document.getElementById("below_sub_msg").innerHTML = "(please wait)";
             const data = new FormData(p_form);
             var currentdate = new Date(); 
             var timestamp = Math.floor(new Date().getTime() / 1000);
@@ -240,7 +325,7 @@
                     window.location.reload();
                 }
             })
-        });
+        });                      
     });
 </script>
 
@@ -250,6 +335,8 @@
         clear_form.addEventListener("submit", function(e) {
             e.preventDefault();
             document.getElementById("clear-pick-submit").disabled=true;
+            document.getElementById("clear-pick-submit").setAttribute("value","Clearing...");
+            document.getElementById("below_sub_msg").innerHTML = "(please wait)";
             const data = new FormData(clear_form);
             data.append("Name", curr_user);
             data.append("Clear", true);
@@ -273,6 +360,28 @@
 </script>
 
 <script>
+
+    function adj_buttons(q_num, pick_yno){
+        if (pick_yno=="yes"){
+            document.getElementById("q"+q_num+"_button_yes").removeAttribute("style");
+            document.getElementById("q"+q_num+"_button_no").setAttribute("style","background-color: #EEE");
+            document.getElementById("q"+q_num+"_button_opt_out").setAttribute("style","background-color: #EEE"); 
+        }
+        if (pick_yno=="no"){
+            document.getElementById("q"+q_num+"_button_yes").setAttribute("style","background-color: #EEE");
+            document.getElementById("q"+q_num+"_button_no").removeAttribute("style");
+            document.getElementById("q"+q_num+"_button_opt_out").setAttribute("style","background-color: #EEE"); 
+        }
+        if (pick_yno=="opt out"){
+            document.getElementById("q"+q_num+"_button_yes").setAttribute("style","background-color: #EEE");
+            document.getElementById("q"+q_num+"_button_no").setAttribute("style","background-color: #EEE");
+            document.getElementById("q"+q_num+"_button_opt_out").removeAttribute("style");
+        }
+    }
+    
+</script>
+
+<script>
     const questionsSheetLink = "https://sheets.googleapis.com/v4/spreadsheets/1TF3Cdoi614IKqOoedxqqC4e6HATXZ4WRkZO0342Hnyk/values/Upcoming Questions/?key=AIzaSyBDAMBO6YH4isbUYYgjK1NF9LwGiur6z-Y";
     let q1_fetch = "Question Error 2";
     let q2_fetch = "Question Error 2";
@@ -288,12 +397,12 @@
         q1_fetch = sheet_data.values[29][3];
         q2_fetch = sheet_data.values[30][3];
         q3_fetch = sheet_data.values[31][3];
-        document.getElementById("q1_text").innerHTML = "Q1: "+q1_fetch;
-        document.getElementById("q2_text").innerHTML = "Q2: "+q2_fetch;
-        document.getElementById("q3_text").innerHTML = "Q3: "+q3_fetch;
-        document.getElementById("q1_ap_text").innerHTML = "Q1: "+q1_fetch;
-        document.getElementById("q2_ap_text").innerHTML = "Q2: "+q2_fetch;
-        document.getElementById("q3_ap_text").innerHTML = "Q3: "+q3_fetch;
+        document.getElementById("q1_text").innerHTML = q1_fetch;
+        document.getElementById("q2_text").innerHTML = q2_fetch;
+        document.getElementById("q3_text").innerHTML = q3_fetch;
+        document.getElementById("q1_ap_text").innerHTML = q1_fetch;
+        document.getElementById("q2_ap_text").innerHTML = q2_fetch;
+        document.getElementById("q3_ap_text").innerHTML = q3_fetch;
         
         q1_link_fetch = sheet_data.values[29][4];
         q2_link_fetch = sheet_data.values[30][4];
@@ -320,42 +429,42 @@
         q1_time_fetch = sheet_data.values[29][2];
         q1_time_fetch_num = Date.parse(q1_time_fetch);
         if(date_east >= q1_time_fetch_num){
-            document.getElementById("q1_yes").setAttribute("value","late");
-            document.getElementById("q1_yes").setAttribute("checked","chedked");
-            document.getElementById("q1_yes_label").innerHTML = "LATE ("+q1_time_fetch+" Eastern)";
-            document.getElementById("q1_no").style.display = 'none';
+            document.getElementById("q1_button_yes").style.display = 'none';
+            document.getElementById("q1_yes_label").style.display = 'none';
+            document.getElementById("q1_button_no").style.display = 'none';
             document.getElementById("q1_no_label").style.display = 'none';
-            document.getElementById("q1_opt-out").style.display = 'none';
-            document.getElementById("q1_opt-out_txt").style.display = 'none';
+            document.getElementById("q1_opt-out").setAttribute("value","late");
+            document.getElementById("q1_opt-out").setAttribute("checked","chedked");
+            document.getElementById("q1_opt-out_txt").innerHTML = "LATE ("+q1_time_fetch+" Eastern)";
         }
         q2_time_fetch = sheet_data.values[30][2];
         q2_time_fetch_num = Date.parse(q2_time_fetch);
         if(date_east >= q2_time_fetch_num){
-            document.getElementById("q2_yes").setAttribute("value","late");
-            document.getElementById("q2_yes").setAttribute("checked","chedked");
-            document.getElementById("q2_yes_label").innerHTML = "LATE ("+q2_time_fetch+" Eastern)";
-            document.getElementById("q2_no").style.display = 'none';
+            document.getElementById("q2_button_yes").style.display = 'none';
+            document.getElementById("q2_yes_label").style.display = 'none';
+            document.getElementById("q2_button_no").style.display = 'none';
             document.getElementById("q2_no_label").style.display = 'none';
-            document.getElementById("q2_opt-out").style.display = 'none';
-            document.getElementById("q2_opt-out_txt").style.display = 'none';
+            document.getElementById("q2_opt-out").setAttribute("value","late");
+            document.getElementById("q2_opt-out").setAttribute("checked","chedked");
+            document.getElementById("q2_opt-out_txt").innerHTML = "LATE ("+q2_time_fetch+" Eastern)";
         }
         q3_time_fetch = sheet_data.values[31][2];
         q3_time_fetch_num = Date.parse(q3_time_fetch);
         if(date_east >= q3_time_fetch_num){
-            document.getElementById("q3_yes").setAttribute("value","late");
-            document.getElementById("q3_yes").setAttribute("checked","chedked");
-            document.getElementById("q3_yes_label").innerHTML = "LATE ("+q3_time_fetch+" Eastern)";
-            document.getElementById("q3_no").style.display = 'none';
+            document.getElementById("q3_button_yes").style.display = 'none';
+            document.getElementById("q3_yes_label").style.display = 'none';
+            document.getElementById("q3_button_no").style.display = 'none';
             document.getElementById("q3_no_label").style.display = 'none';
-            document.getElementById("q3_opt-out").style.display = 'none';
-            document.getElementById("q3_opt-out_txt").style.display = 'none';
+            document.getElementById("q3_opt-out").setAttribute("value","late");
+            document.getElementById("q3_opt-out").setAttribute("checked","chedked");
+            document.getElementById("q3_opt-out_txt").innerHTML = "LATE ("+q3_time_fetch+" Eastern)";
         }
     }
 
 </script>
 
 <script>
-    const scoresSheetLink = "https://sheets.googleapis.com/v4/spreadsheets/1KxdOrYqK66Jv8Eise2JsgHf9wb0PpId5MdczF1CnSRM/values/Scores/?key=AIzaSyBDAMBO6YH4isbUYYgjK1NF9LwGiur6z-Y";
+    const scoresSheetLink = "https://sheets.googleapis.com/v4/spreadsheets/1TF3Cdoi614IKqOoedxqqC4e6HATXZ4WRkZO0342Hnyk/values/Scores/?key=AIzaSyBDAMBO6YH4isbUYYgjK1NF9LwGiur6z-Y";
     let score_item = "Scores Error 2";
     scores_data_fetch();
     
@@ -517,7 +626,7 @@
 
 <script>
     if (window.innerWidth < 766) {
-        document.getElementById("nav").style.display = "none";
+        document.getElementById("nav").style.display = "block";
     }
     function myFunction() {
         var x = document.getElementById("nav");
