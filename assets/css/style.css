@@ -771,6 +771,14 @@ td { font-size: 13px }
     padding: 50px 5% 0 5%;
 }
 
+.averages-section {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    padding: 0px 5% 50px 5%;
+}
+
 .season-prizes-section {
     justify-content: center;
     align-items: center;
