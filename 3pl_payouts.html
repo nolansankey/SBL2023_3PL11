@@ -92,7 +92,7 @@
         let payouts_data = await fetch(payoutsSheetLink)    
           .then((response) => response.json());
         var table = document.getElementById("payouts-table");
-        var season_weeks = 5;
+        var season_weeks = 6;
         var places = 3
         for (let i = 0; i < season_weeks; i++) {
             var row1 = table.insertRow(places*i+1);
