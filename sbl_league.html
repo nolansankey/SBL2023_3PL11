@@ -96,6 +96,7 @@
         </thead>
         <tbody></tbody>
       </table>
+      <h5>*Taulman wins on divisional record tiebreak</h5>
       <br>
       <h4>Headcases</h4>
       <table id="div2-table">
@@ -108,6 +109,8 @@
           </thead>
         <tbody></tbody>
       </table>
+      <h5>*Nolan wins on head-to-head tiebreak</h5>
+      <h5>*Chris wins on head-to-head tiebreak</h5>
       <br>
       <h6>*Top 4 in each division qualify for playoffs</h6>
     </section>
@@ -187,8 +190,9 @@
         row_add = 1;
         for (let i = 0; i < num_players; i++) {
             name = balance_data.values[users_start_idx+i][names_idx];
+            opp_name = balance_data.values[users_start_idx+i][opp_name_idx];
             already_in = !(used_names.includes(name));
-            if(already_in){
+            if(already_in&&opp_name!="-"){
                 var row = score_table.insertRow(row_add);
                 var cell1 = row.insertCell(0);
                 cell1.innerHTML = name;
@@ -199,7 +203,7 @@
                 var cell2 = row.insertCell(1);
                 cell2.classList.add("scores-score-cell");
                 cell2.innerHTML = user_e_bal+"<br>("+user_in_bal+")<br>["+user_g_bal+"]";
-                opp_name = balance_data.values[users_start_idx+i][opp_name_idx];
+                
                 var opp_idx = -3;
                 for (let j = 0; j < num_players; j++) {
                     if(balance_data.values[users_start_idx+j][names_idx]==opp_name){

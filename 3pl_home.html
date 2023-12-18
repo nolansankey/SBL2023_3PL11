@@ -299,9 +299,6 @@
         var p_form = document.getElementById('picks-form');
         p_form.addEventListener("submit", function(e) {
             e.preventDefault();
-            document.getElementById("pick-submit").disabled=true;
-            document.getElementById("pick-submit").setAttribute("value","Submitting...");
-            document.getElementById("below_sub_msg").innerHTML = "(please wait)";
             const data = new FormData(p_form);
             var currentdate = new Date(); 
             var timestamp = Math.floor(new Date().getTime() / 1000);
@@ -310,21 +307,28 @@
             q1_input = data.get("Q1");
             q2_input = data.get("Q2");
             q3_input = data.get("Q3");
-            const action = e.target.action;
-            fetch(action, {
-                method: 'POST',
-                body: data,
-            })
-            .then(() => {
-                var r = confirm("Picks Submitted Successfully! Press OK to reload page");
-                if (r == true){
-                    localStorage.setItem("picked "+today, true);
-                    localStorage.setItem("Q1 "+today, q1_input);
-                    localStorage.setItem("Q2 "+today, q2_input);
-                    localStorage.setItem("Q3 "+today, q3_input);
-                    window.location.reload();
-                }
-            })
+            if((q1_input=="opt out"&&q2_input=="opt out")||(q1_input=="opt out"&&q3_input=="opt out")||(q2_input=="opt out"&&q3_input=="opt out")){
+                document.getElementById("below_sub_msg").innerHTML = "Only 1 opt out allowed";
+            }
+            else{
+                document.getElementById("pick-submit").disabled=true;
+                document.getElementById("pick-submit").setAttribute("value","Submitting...");
+                const action = e.target.action;
+                fetch(action, {
+                    method: 'POST',
+                    body: data,
+                })
+                .then(() => {
+                    var r = confirm("Picks Submitted Successfully! Press OK to reload page");
+                    if (r == true){
+                        localStorage.setItem("picked "+today, true);
+                        localStorage.setItem("Q1 "+today, q1_input);
+                        localStorage.setItem("Q2 "+today, q2_input);
+                        localStorage.setItem("Q3 "+today, q3_input);
+                        window.location.reload();
+                    }
+                })
+            }
         });                      
     });
 </script>
