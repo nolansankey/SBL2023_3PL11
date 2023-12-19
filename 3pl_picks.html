@@ -106,7 +106,7 @@
     async function this_week_data_fetch(){
         let this_picks_data = await fetch(thisWeekSheetLink)    
           .then((response) => response.json());
-        var num_players = 36;
+        var num_players = 42;
         var head_row = document.getElementById("this_week_head_row");
         var table = document.getElementById("this_week_table");
         var curr_user = localStorage.getItem("user");
