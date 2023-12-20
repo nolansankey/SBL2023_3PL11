@@ -110,6 +110,10 @@ td { font-size: 13px }
         justify-content: center;
         align-items: center;
     }
+    
+    .navbar-nav > li {
+        display: block;
+    }
 
     .navbar-nav > li > a {
         color: #000;
