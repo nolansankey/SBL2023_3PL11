@@ -30,6 +30,7 @@
           <p id="user-note"></p>
         </div>
       </div>
+      <br>
       <div class="mobile-nav-button">
         <a href="javascript:void(0);" class="icon" onclick="myFunction()">
           <p><i>Menu</i></p>
@@ -44,7 +45,7 @@
           <li><a href="3pl_payouts.html">Payouts</a></li>
           <li><a href="3pl_rules.html">Rules</a></li>
           <li><a href="3pl_history.html">History</a></li>
-          <li><a href="sbl_home.html"><i>Switch to SBL</i></a></li>
+          <li><a href="sbl_home.html"><i>Go to SBL</i></a></li>
           <li><a href="javascript:void(0);" onclick="logout()">Logout</a></li>
         </ul>
       </div>
@@ -106,7 +107,7 @@
     async function this_week_data_fetch(){
         let this_picks_data = await fetch(thisWeekSheetLink)    
           .then((response) => response.json());
-        var num_players = 42;
+        var num_players = 43;
         var head_row = document.getElementById("this_week_head_row");
         var table = document.getElementById("this_week_table");
         var curr_user = localStorage.getItem("user");

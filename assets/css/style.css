@@ -26,6 +26,15 @@ td { font-size: 13px }
     position: relative;
 }
 
+.navbar-nav{
+    justify-content: center;
+    align-items: center;
+}
+
+.nav{
+    
+}
+
 .header {
     height: 80px;
     width: 100%;
@@ -43,14 +52,29 @@ td { font-size: 13px }
 }
 
 .navbar-collapse {
-    float: left;
+    float: none;
     height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar-nav {
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar-nav > li {
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
 }
 
 .navbar-nav > li > a {
   color: #000;
   font-size: 18px;
   font-weight: 400;
+  justify-content: center;
+  align-items: center;
 }
 
 .mobile-nav-button {
