@@ -235,8 +235,9 @@ td { font-size: 13px }
 }
 
 .button-input {
-    height: 4px;
+    height: 0px;
     width: 0px;
+    margin: 0 0;
 }
 
 .half_button{
