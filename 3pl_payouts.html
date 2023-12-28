@@ -69,6 +69,22 @@
       <p class="shrink-text">* Ties split prizes</p>
       <p class="shrink-text">** Lucky Loser = lowest pick percentage with max 4 days missed</p>
     </section>
+      
+    <!-- Payouts Section -->
+    <section id="earnings-section" class="earnings-section">
+      <h1 class="shrink-text-lg">Earnings:</h1>
+      <table id="earnings-table">
+        <thead>
+          <tr>
+            <th scope="col" class="std_col">Player</th>
+            <th scope="col" class="std_col">Entry Due</th>
+            <th scope="col" class="std_col">Earned (League)</th>
+            <th scope="col" class="wide_col">Earned (Pools)</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
   </body>
 </html>
 
@@ -122,6 +138,30 @@
             var cellb = ll_row.insertCell(j);
             cellb.innerHTML = payouts_data.values[places*season_weeks+4][2+j];
         }      
+    }   
+    
+</script>
+
+<script>
+    const earningsSheetLink = "https://sheets.googleapis.com/v4/spreadsheets/1TF3Cdoi614IKqOoedxqqC4e6HATXZ4WRkZO0342Hnyk/values/Earnings/?key=AIzaSyBDAMBO6YH4isbUYYgjK1NF9LwGiur6z-Y";
+    earnings_data_fetch();
+    
+    async function earnings_data_fetch(){
+        let earnings_data = await fetch(earningsSheetLink)    
+          .then((response) => response.json());
+        var table = document.getElementById("earnings-table");
+        var num_players = 43;
+        for (let i = 0; i < num_players; i++) {
+            var row1 = table.insertRow(i+1);
+            var player_cell = row1.insertCell(0);
+            player_cell.innerHTML = earnings_data.values[3+i][2];
+            var cella = row1.insertCell(1);
+            cella.innerHTML = earnings_data.values[3+i][6];
+            var cellb = row1.insertCell(2);
+            cellb.innerHTML = earnings_data.values[3+i][7];
+            var cellc = row1.insertCell(3);
+            cellc.innerHTML = earnings_data.values[3+i][8];    
+        }
     }   
     
 </script>
